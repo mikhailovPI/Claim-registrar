@@ -27,6 +27,7 @@ public class Request {
     public static final String REQUEST_TEXT = "text_request";
     private static final String REQUEST_CREATE_ON = "created_on";
     private static final String REQUEST_USER_ID = "user_id";
+    private static final String REQUEST_STATUS = "status";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,8 +42,12 @@ public class Request {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime publishedOn;
 
-    @OneToMany
+    @OneToOne
     @JoinColumn(name = REQUEST_USER_ID)
     User user;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = REQUEST_STATUS)
+    RequestStatus status;
 
 }
