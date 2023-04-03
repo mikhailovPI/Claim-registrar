@@ -23,6 +23,8 @@ public class User {
     public static final String USERS_EMAIL = "email";
     public static final String USERS_ADMIN = "user_admin";
     public static final String USERS_OPERATOR = "user_operator";
+    private static final String USERS_LOGIN = "user_login";
+    private static final String USERS_PASSWORD = "user_password";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +33,12 @@ public class User {
 
     @Column(name = USERS_NAME)
     String name;
+
+    @Column(name = USERS_LOGIN)
+    String login;
+
+    @Column(name = USERS_PASSWORD)
+    String password;
 
     @Column(name = USERS_EMAIL)
     String email;
