@@ -1,8 +1,6 @@
 package ru.mikhailov.claimregistrar.request.model;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.mikhailov.claimregistrar.user.model.User;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
@@ -18,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @FieldDefaults(level =  AccessLevel.PRIVATE)
 @Entity
-@Table (name = Request.TABLE_REQUESTS, schema = Request.SCHEMA_TABLE)
+@Table(name = Request.TABLE_REQUESTS, schema = Request.SCHEMA_TABLE)
 public class Request {
 
     public static final String TABLE_REQUESTS = "requests";
