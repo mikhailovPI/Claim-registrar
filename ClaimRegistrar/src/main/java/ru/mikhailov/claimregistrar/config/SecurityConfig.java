@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.mikhailov.claimregistrar.user.model.UserRole;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -20,8 +21,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/request/admin").hasRole("ADMIN")
-                .antMatchers("/request/operator").hasAnyRole("OPERATOR", "ADMIN")
+                .antMatchers("/request/admin").hasRole(String.valueOf(UserRole.ADMIN))
+                .antMatchers("/request/operator").hasAnyRole(
+                        String.valueOf(UserRole.OPERATOR),
+                        String.valueOf(UserRole.ADMIN))
                 .antMatchers("/request").permitAll()
                 .and()
                 .formLogin();
