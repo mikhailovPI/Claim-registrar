@@ -44,9 +44,26 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    //TODO методы для админа
+
     @Override
     @Transactional
     public void deleteUserById(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return null;
+    }
+
+    @Override
+    public User getUserByName(String text) {
+        return null;
+    }
+
+    @Override
+    public User assignRightsOperator(Long userId) {
+        return null;
     }
 }
