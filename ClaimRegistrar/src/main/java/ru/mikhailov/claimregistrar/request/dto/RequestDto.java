@@ -19,9 +19,9 @@ public class RequestDto {
 
     String text;
 
-    LocalDateTime publishedOn;
+    //LocalDateTime publishedOn;
 
-    Long user;
+    //Long user;
 
     RequestStatus status;
 }

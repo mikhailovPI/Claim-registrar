@@ -26,21 +26,21 @@ public class RequestOperatorController {
     }
 
     //Получение всех заявок пользователя с возможностью сортировки по дате и пагинацией
-    @GetMapping(path = "user/{userId}")
+    @GetMapping(path = "users/{userId}")
     public  List<Request> getUserRequest (@PathVariable Long userId) {
         log.info("URL: /request/operator/user/{userId}. GetMapping/Получение всех заявок пользователя/getUserRequest");
         return requestService.getUserRequest(userId);
     }
 
     //Принятие заявки
-    @PatchMapping(path = "/{requestId}")
+    @PatchMapping(path = "/accept/{requestId}")
     public Request acceptRequest (@PathVariable Long requestId) {
         log.info("URL: /request/operator/{requestId}. PatchMapping/Принятие заявки/acceptRequest");
         return requestService.acceptRequest(requestId);
     }
 
     //Отклонение заявки
-    @PatchMapping(path = "/{requestId}")
+    @PatchMapping(path = "/reject/{requestId}")
     public Request rejectRequest (@PathVariable Long requestId) {
         log.info("URL: /request/operator/{requestId}. PatchMapping/Отклонение заявки/rejectRequest");
         return requestService.rejectRequest(requestId);

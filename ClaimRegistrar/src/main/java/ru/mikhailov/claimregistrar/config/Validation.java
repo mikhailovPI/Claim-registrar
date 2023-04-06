@@ -5,7 +5,6 @@ import ru.mikhailov.claimregistrar.user.model.User;
 
 public class Validation {
 
-
     public static void validationBodyUser(User user) {
         if (user.getEmail() == null) {
             throw new ValidationException("E-mail не должен быть пустым.");

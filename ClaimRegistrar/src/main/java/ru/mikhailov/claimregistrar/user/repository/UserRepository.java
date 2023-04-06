@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select c.name from User c")
     List<String> findByNameOrderByName();
+
+    //User findByUsername(String name);
 }

@@ -18,7 +18,7 @@ public class UserController {
     @GetMapping(path = "/users")
     public List<User> getUsersList(
             @RequestParam(name = "from", defaultValue = "0") int from,
-            @RequestParam(name = "size", defaultValue = "10") int size) {
+            @RequestParam(name = "size", defaultValue = "5") int size) {
         log.info("URL: /users. GetMapping/Получение всех пользователей/getUsersList");
         return userService.getUsersList(from, size);
     }

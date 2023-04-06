@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public interface RequestService {
 
-    List<RequestDto> getRequestsByUser(Long userId);
+    List<RequestDto> getRequestsByUser(Long userId, Integer sort, int from, int size);
 
     RequestDto createRequest(RequestDto request, Long userId);
 

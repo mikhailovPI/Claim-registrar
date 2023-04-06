@@ -44,13 +44,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    //TODO методы для админа
-
     @Override
     @Transactional
     public void deleteUserById(Long userId) {
         userRepository.deleteById(userId);
     }
+
+    //TODO методы для админа
 
     @Override
     public List<User> getAllUsers() {

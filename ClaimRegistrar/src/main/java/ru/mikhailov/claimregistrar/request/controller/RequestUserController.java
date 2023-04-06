@@ -11,17 +11,21 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/request/user")
+@RequestMapping(path = "/request/users")
 @Slf4j
 public class RequestUserController {
 
     private final RequestService requestService;
 
     //Просмотр заявок пользователя с возможностью сортировки по дате и пагинацией
-    @GetMapping(path = "/{userId}")
-    public List<RequestDto> getRequestsByUser (@PathVariable Long userId) {
+    @GetMapping(path = "/{userId}/{sort}")
+    public List<RequestDto> getRequestsByUser (
+            @PathVariable Long userId,
+            @PathVariable Integer sort,
+            @RequestParam(name = "from", defaultValue = "0") int from,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
         log.info("URL: /request/user/{userId}. GetMapping/Просмотр всех заявок пользователя/createRequest");
-        return requestService.getRequestsByUser(userId);
+        return requestService.getRequestsByUser(userId, sort, from, size);
     }
 
     //Создание заявки
@@ -29,7 +33,7 @@ public class RequestUserController {
     public RequestDto createRequest(
             @RequestBody RequestDto request,
             @PathVariable Long userId) {
-        log.info("URL: /request. PostMapping/Создание заявки/createRequest");
+        log.info("URL: /request/users/{userId}. PostMapping/Создание заявки/createRequest");
         return requestService.createRequest(request, userId);
     }
 

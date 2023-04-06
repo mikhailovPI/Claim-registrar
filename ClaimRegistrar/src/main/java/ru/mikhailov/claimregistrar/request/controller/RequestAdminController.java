@@ -39,5 +39,4 @@ public class RequestAdminController {
         log.info("URL: /request/admin/user. GetMapping/Поиск пользователя по имени/getUserByName");
         return userService.assignRightsOperator(userId);
     }
-
 }

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.mikhailov.claimregistrar.config.PageRequestOverride;
 import ru.mikhailov.claimregistrar.exception.NotFoundException;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
 import ru.mikhailov.claimregistrar.request.mapper.RequestMapper;
@@ -14,7 +15,9 @@ import ru.mikhailov.claimregistrar.user.model.User;
 import ru.mikhailov.claimregistrar.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -25,14 +28,39 @@ public class RequestServiceImpl implements RequestService {
     private final RequestRepository requestRepository;
     private final UserRepository userRepository;
 
-
     //TODO Методы для пользователя
     @Override
-    public List<RequestDto> getRequestsByUser(Long userId) {
-        return null;
+    public List<RequestDto> getRequestsByUser(Long userId, Integer sort, int from, int size) {
+        PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
+        if (sort.equals(0)) {
+            return requestRepository.findRequestsByUserId(userId, pageRequest)
+                    .stream()
+                    .sorted(new Comparator<Request>() {
+                        @Override
+                        public int compare(Request o1, Request o2) {
+                            return o1.getPublishedOn().getNano() - o2.getPublishedOn().getNano();
+                        }
+                    })
+                    .map(RequestMapper::toRequestDto)
+                    .collect(Collectors.toList());
+        } else if (sort.equals(1)) {
+            return requestRepository.findRequestsByUserId(userId, pageRequest)
+                    .stream()
+                    .sorted(new Comparator<Request>() {
+                        @Override
+                        public int compare(Request o1, Request o2) {
+                            return o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano();
+                        }
+                    })
+                    .map(RequestMapper::toRequestDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию");
+        }
     }
 
     @Override
+    @Transactional
     public RequestDto createRequest(RequestDto requestDto, Long userId) {
         User user = validationUser(userId);
 
@@ -40,17 +68,20 @@ public class RequestServiceImpl implements RequestService {
         request.setPublishedOn(LocalDateTime.now());
         request.setUser(user);
         request.setStatus(RequestStatus.ЧЕРНОВИК);
-        return RequestMapper.toRequestDto(requestRepository.save(request));
+        Request requestSave = requestRepository.save(request);
+        return RequestMapper.toRequestDto(requestSave);
     }
 
     @Override
     public RequestDto sendRequest(Long userId, Long requestId) {
         Request request = validationRequest(requestId);
-        if (!request.getUser().equals(userId)) {
-            throw new NotFoundException ("Пользователь не может отправить чужую заявку!");
+        if (!request.getUser().getId().equals(userId)) {
+            throw new NotFoundException("Пользователь не может отправить чужую заявку!");
         }
         request.setStatus(RequestStatus.ОТПРАВЛЕНО);
-        return RequestMapper.toRequestDto(requestRepository.save(request));
+        Request requestSave = requestRepository.save(request);
+
+        return RequestMapper.toRequestDto(requestSave);
     }
 
 /*    @Override
@@ -67,13 +98,15 @@ public class RequestServiceImpl implements RequestService {
     public RequestDto updateRequest(Long userId, RequestDto requestDto) {
         Request request = validationRequest(requestDto.getId());
         if (!request.getUser().getId().equals(userId)) {
-            throw new NotFoundException ("Пользователь не может редактировать чужую заявку!");
+            throw new NotFoundException("Пользователь не может редактировать чужую заявку!");
         }
         if (!request.getStatus().equals(RequestStatus.ЧЕРНОВИК)) {
-            throw new NotFoundException ("Статус заявки не позволяет ее редактировать. Должен быть статус - черновик!");
+            throw new NotFoundException("Статус заявки не позволяет ее редактировать. Должен быть статус - черновик!");
         }
         request.setText(requestDto.getText());
-        return RequestMapper.toRequestDto(requestRepository.save(request));
+        Request requestSave = requestRepository.save(request);
+
+        return RequestMapper.toRequestDto(requestSave);
     }
 
     //TODO Методы для оператора
