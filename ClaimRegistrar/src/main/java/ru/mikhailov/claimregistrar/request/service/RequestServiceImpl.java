@@ -33,6 +33,7 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestDto> getRequestsByUser(Long userId, Integer sort, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
         if (sort.equals(0)) {
+            //сортировка по убыванию даты
             return requestRepository.findRequestsByUserId(userId, pageRequest)
                     .stream()
                     .sorted(new Comparator<Request>() {
@@ -44,6 +45,7 @@ public class RequestServiceImpl implements RequestService {
                     .map(RequestMapper::toRequestDto)
                     .collect(Collectors.toList());
         } else if (sort.equals(1)) {
+            //сортировка по возрастанию даты
             return requestRepository.findRequestsByUserId(userId, pageRequest)
                     .stream()
                     .sorted(new Comparator<Request>() {
