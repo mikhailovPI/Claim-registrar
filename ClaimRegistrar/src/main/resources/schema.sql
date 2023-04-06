@@ -1,5 +1,3 @@
-DROP TABLE requests;
-DROP TABLE users;
 
 CREATE TABLE IF NOT EXISTS users
 (
@@ -23,36 +21,3 @@ CREATE TABLE IF NOT EXISTS requests
     CONSTRAINT pk_request PRIMARY KEY (request_id),
     CONSTRAINT fk_user_id_requests FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
-
-INSERT INTO USERS
-VALUES (1, 'Andrey', 'And123',  'mmm@mail.ru');
-
-INSERT INTO USERS
-VALUES (2, 'Alex', 'Alex123',  'aaa@mail.ru');
-
-INSERT INTO USERS
-VALUES (3, 'Anna', 'Anna123',  'sss@mail.ru', true, true);
-
-INSERT INTO USERS
-VALUES (4, 'Tatiana', 'Tatiana123', 'qwe@mail.ru', true);
-
-INSERT INTO USERS
-VALUES (5, 'Ivan', 'Ivan123',  'asd@mail.ru');
-
-INSERT INTO USERS
-VALUES (6, 'Elizaveta', 'Elizaveta123',  'hgnf@mail.ru', false, true);
-
-INSERT INTO USERS
-VALUES (7, 'Sergey', 'Sergey123',  'cdscsv@mail.ru');
-
-INSERT INTO USERS
-VALUES (8, 'Igor', 'Igor123',  'dsvdv@mail.ru');
-
-INSERT INTO USERS
-VALUES (9, 'Olga', 'Olga123',  'fddnbd@mail.ru', true, true);
-
-INSERT INTO USERS
-VALUES (10, 'Elena', 'Elena123', 'vscsdo@mail.ru', false, true);
-
-INSERT INTO USERS
-VALUES (11, 'Valentina', 'Valentina123',  'comlsv@mail.ru');
