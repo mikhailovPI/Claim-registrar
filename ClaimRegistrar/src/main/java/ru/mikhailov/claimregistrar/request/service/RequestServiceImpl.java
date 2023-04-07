@@ -35,7 +35,8 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestAllDto> getRequestsByUser(Long userId, Integer sort, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
         if (!validationUser(userId).getId().equals(userId)) {
-
+            throw new NotFoundException (
+                    String.format("Данный пользователь %s не может смотреть чужие запросы", userId));
         }
         if (sort.equals(0)) {
             //сортировка по убыванию даты

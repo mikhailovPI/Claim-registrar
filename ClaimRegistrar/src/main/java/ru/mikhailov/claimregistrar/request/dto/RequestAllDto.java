@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import ru.mikhailov.claimregistrar.request.model.RequestStatus;
-import ru.mikhailov.claimregistrar.user.model.User;
+import ru.mikhailov.claimregistrar.user.dto.UserRequestDro;
 
 import java.time.LocalDateTime;
 
@@ -23,7 +23,7 @@ public class RequestAllDto {
 
     LocalDateTime publishedOn;
 
-    User user;
+    UserRequestDro user;
 
     RequestStatus status;
 }
