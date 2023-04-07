@@ -1,6 +1,7 @@
 package ru.mikhailov.claimregistrar.request.service;
 
 import org.springframework.stereotype.Service;
+import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
 import ru.mikhailov.claimregistrar.request.model.Request;
 
@@ -9,7 +10,7 @@ import java.util.List;
 @Service
 public interface RequestService {
 
-    List<RequestDto> getRequestsByUser(Long userId, Integer sort, int from, int size);
+    List<RequestAllDto> getRequestsByUser(Long userId, Integer sort, int from, int size);
 
     RequestDto createRequest(RequestDto request, Long userId);
 

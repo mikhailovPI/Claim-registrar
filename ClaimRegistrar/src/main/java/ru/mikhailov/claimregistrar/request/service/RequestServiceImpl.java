@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mikhailov.claimregistrar.config.PageRequestOverride;
 import ru.mikhailov.claimregistrar.exception.NotFoundException;
+import ru.mikhailov.claimregistrar.exception.ValidationException;
+import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
 import ru.mikhailov.claimregistrar.request.mapper.RequestMapper;
 import ru.mikhailov.claimregistrar.request.model.Request;
@@ -30,31 +32,24 @@ public class RequestServiceImpl implements RequestService {
 
     //TODO Методы для пользователя
     @Override
-    public List<RequestDto> getRequestsByUser(Long userId, Integer sort, int from, int size) {
+    public List<RequestAllDto> getRequestsByUser(Long userId, Integer sort, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
+        if (!validationUser(userId).getId().equals(userId)) {
+
+        }
         if (sort.equals(0)) {
             //сортировка по убыванию даты
             return requestRepository.findRequestsByUserId(userId, pageRequest)
                     .stream()
-                    .sorted(new Comparator<Request>() {
-                        @Override
-                        public int compare(Request o1, Request o2) {
-                            return o1.getPublishedOn().getNano() - o2.getPublishedOn().getNano();
-                        }
-                    })
-                    .map(RequestMapper::toRequestDto)
+                    .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
+                    .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
         } else if (sort.equals(1)) {
             //сортировка по возрастанию даты
             return requestRepository.findRequestsByUserId(userId, pageRequest)
                     .stream()
-                    .sorted(new Comparator<Request>() {
-                        @Override
-                        public int compare(Request o1, Request o2) {
-                            return o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano();
-                        }
-                    })
-                    .map(RequestMapper::toRequestDto)
+                    .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
+                    .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
         } else {
             throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию");
@@ -65,7 +60,12 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     public RequestDto createRequest(RequestDto requestDto, Long userId) {
         User user = validationUser(userId);
-
+        if (user.getAdmin() == true ||
+                user.getOperator() == true) {
+            throw new NotFoundException (
+                    String.format("Данный пользователь %s не может создавать запрос," +
+                            " т.к. является оператором/админом.", userId));
+        }
         Request request = RequestMapper.toRequest(requestDto);
         request.setPublishedOn(LocalDateTime.now());
         request.setUser(user);
@@ -79,6 +79,12 @@ public class RequestServiceImpl implements RequestService {
         Request request = validationRequest(requestId);
         if (!request.getUser().getId().equals(userId)) {
             throw new NotFoundException("Пользователь не может отправить чужую заявку!");
+        }
+        if (validationUser(userId).getAdmin() == true ||
+                validationUser(userId).getOperator() == true) {
+            throw new NotFoundException (
+                    String.format("Данный пользователь %s не может изменять статус запроса на " +
+                                    RequestStatus.ОТПРАВЛЕНО + " т.к. является оператором/админом.", userId));
         }
         request.setStatus(RequestStatus.ОТПРАВЛЕНО);
         Request requestSave = requestRepository.save(request);
@@ -105,6 +111,13 @@ public class RequestServiceImpl implements RequestService {
         if (!request.getStatus().equals(RequestStatus.ЧЕРНОВИК)) {
             throw new NotFoundException("Статус заявки не позволяет ее редактировать. Должен быть статус - черновик!");
         }
+        if (validationUser(userId).getAdmin() == true ||
+                validationUser(userId).getOperator() == true) {
+            throw new NotFoundException (
+                    String.format("Данный пользователь %s не может обновлять запрос," +
+                            " т.к. является оператором/админом.", userId));
+        }
+
         request.setText(requestDto.getText());
         Request requestSave = requestRepository.save(request);
 

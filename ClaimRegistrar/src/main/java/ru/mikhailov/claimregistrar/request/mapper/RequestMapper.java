@@ -1,5 +1,6 @@
 package ru.mikhailov.claimregistrar.request.mapper;
 
+import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
 import ru.mikhailov.claimregistrar.request.model.Request;
 
@@ -25,6 +26,26 @@ public class RequestMapper {
                 //request.getPublishedOn(),
                 //request.getUser().getId(),
                 request.getStatus()
+        );
+    }
+
+    public static RequestAllDto toRequestAllDto (Request request) {
+        return new RequestAllDto(
+                request.getId(),
+                request.getText(),
+                request.getPublishedOn(),
+                request.getUser(),
+                request.getStatus()
+        );
+    }
+
+    public static Request toRequestAll (RequestAllDto requestAllDto) {
+        return new Request(
+                requestAllDto.getId(),
+                requestAllDto.getText(),
+                requestAllDto.getPublishedOn(),
+                requestAllDto.getUser(),
+                requestAllDto.getStatus()
         );
     }
 }
