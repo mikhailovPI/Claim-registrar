@@ -92,7 +92,7 @@ public class RequestServiceImpl implements RequestService {
             Request requestUpdate = requestRepository.save(request);
             return RequestMapper.toRequestDto(requestUpdate);
         } else {
-            throw new NotFoundException("Заявка имеет не имеет статус " + RequestStatus.ЧЕРНОВИК);
+            throw new NotFoundException("Заявка не имеет статус " + RequestStatus.ЧЕРНОВИК);
         }
     }
 
@@ -143,21 +143,67 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    //TODO добавить просмотр заявок по имени
     @Override
-    public List<Request> getUserRequest(Long userId) {
-        return null;
+    public List<RequestDto> getUserRequest(Long userId, Integer sort, int from, int size) {
+        PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
+        if (sort.equals(0)) {
+            //сортировка по убыванию даты
+            return requestRepository.findAll(pageRequest)
+                    .stream()
+                    .filter(request -> request.getStatus().equals(RequestStatus.ОТПРАВЛЕНО))
+                    .filter(request -> request.getUser().getId().equals(userId))
+                    .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
+                    .map(RequestMapper::toRequestDto)
+                    .collect(Collectors.toList());
+        } else if (sort.equals(1)) {
+            //сортировка по возрастанию даты
+            return requestRepository.findAll(pageRequest)
+                    .stream()
+                    .filter(request -> request.getStatus().equals(RequestStatus.ОТПРАВЛЕНО))
+                    .filter(request -> request.getUser().getId().equals(userId))
+                    .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
+                    .map(RequestMapper::toRequestDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию");
+        }
     }
 
+
+    //TODO добавить ограничение на принятие заявки пользователем
     @Override
-    public Request acceptRequest(Long requestId) {
-        return null;
+    @Transactional
+    public RequestAllDto acceptRequest(Long requestId) {
+        Request request = validationRequest(requestId);
+
+        if (request.getStatus().equals(RequestStatus.ОТПРАВЛЕНО)) {
+            request.setStatus(RequestStatus.ПРИНЯТО);
+            Request requestUpdate = requestRepository.save(request);
+            return RequestMapper.toRequestAllDto(requestUpdate);
+        } else {
+            throw new NotFoundException("Заявка не имеет статус " + RequestStatus.ОТПРАВЛЕНО);
+        }
     }
 
+    //TODO добавить ограничение на отклонение заявки пользователем
     @Override
-    public Request rejectRequest(Long requestId) {
-        return null;
+    @Transactional
+    public RequestAllDto rejectRequest(Long requestId) {
+        Request request = validationRequest(requestId);
+
+        if (request.getStatus().equals(RequestStatus.ОТПРАВЛЕНО) ||
+                request.getStatus().equals(RequestStatus.ПРИНЯТО)) {
+            request.setStatus(RequestStatus.ОТКЛОНЕНО);
+            Request requestUpdate = requestRepository.save(request);
+            return RequestMapper.toRequestAllDto(requestUpdate);
+        } else {
+            throw new NotFoundException("Заявка не имеет статус " + RequestStatus.ОТПРАВЛЕНО + " или "
+                    + RequestStatus.ПРИНЯТО);
+        }
     }
 
+    //TODO методы валидации
     private User validationUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(
