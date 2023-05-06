@@ -3,6 +3,7 @@ package ru.mikhailov.claimregistrar.request.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.model.Request;
 import ru.mikhailov.claimregistrar.request.service.RequestService;
 
@@ -17,12 +18,13 @@ public class RequestOperatorController {
     private final RequestService requestService;
 
     //Получение всех заявок с возможностью сортировки по дате и пагинацией
-    @GetMapping
-    public List<Request> getRequests(
+    @GetMapping(path = "/{sort}")
+    public List<RequestAllDto> getRequests(
+            @PathVariable Integer sort,
             @RequestParam(name = "from", defaultValue = "0") int from,
             @RequestParam(name = "size", defaultValue = "5") int size) {
         log.info("URL: /request/operator. GetMapping/Получение всех заявок/getRequest");
-        return requestService.getRequests(from, size);
+        return requestService.getRequests(sort, from, size);
     }
 
     //Получение всех заявок пользователя с возможностью сортировки по дате и пагинацией

@@ -34,6 +34,4 @@ public class UserController {
         log.info("URL: /users/{userId}. DeleteMapping/Удаление пользователя с id: " + userId + "/deleteUserById");
         userService.deleteUserById(userId);
     }
-
-
 }

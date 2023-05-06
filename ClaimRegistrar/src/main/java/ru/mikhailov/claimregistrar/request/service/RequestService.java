@@ -1,5 +1,6 @@
 package ru.mikhailov.claimregistrar.request.service;
 
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.stereotype.Service;
 import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
@@ -10,6 +11,7 @@ import java.util.List;
 @Service
 public interface RequestService {
 
+    //TODO Методы для пользователя
     List<RequestAllDto> getRequestsByUser(Long userId, Integer sort, int from, int size);
 
     RequestDto createRequest(RequestDto request, Long userId);
@@ -19,7 +21,8 @@ public interface RequestService {
     //RequestDto updateRequest(Long userId, Long requestId);
     RequestDto updateRequest(Long userId, RequestDto requestDto);
 
-    List<Request> getRequests(int from, int size);
+    //TODO Методы для оператора
+    List<RequestAllDto> getRequests(Integer sort, int from, int size);
 
     List<Request> getUserRequest(Long userId);
 

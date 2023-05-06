@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mikhailov.claimregistrar.config.PageRequestOverride;
 import ru.mikhailov.claimregistrar.exception.NotFoundException;
-import ru.mikhailov.claimregistrar.exception.ValidationException;
 import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
 import ru.mikhailov.claimregistrar.request.mapper.RequestMapper;
@@ -35,7 +34,7 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestAllDto> getRequestsByUser(Long userId, Integer sort, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
         if (!validationUser(userId).getId().equals(userId)) {
-            throw new NotFoundException (
+            throw new NotFoundException(
                     String.format("Данный пользователь %s не может смотреть чужие запросы", userId));
         }
         if (sort.equals(0)) {
@@ -63,7 +62,7 @@ public class RequestServiceImpl implements RequestService {
         User user = validationUser(userId);
         if (user.getAdmin() == true ||
                 user.getOperator() == true) {
-            throw new NotFoundException (
+            throw new NotFoundException(
                     String.format("Данный пользователь %s не может создавать запрос," +
                             " т.к. является оператором/админом.", userId));
         }
@@ -76,6 +75,7 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
+    @Transactional
     public RequestDto sendRequest(Long userId, Long requestId) {
         Request request = validationRequest(requestId);
         if (!request.getUser().getId().equals(userId)) {
@@ -83,25 +83,18 @@ public class RequestServiceImpl implements RequestService {
         }
         if (validationUser(userId).getAdmin() == true ||
                 validationUser(userId).getOperator() == true) {
-            throw new NotFoundException (
+            throw new NotFoundException(
                     String.format("Данный пользователь %s не может изменять статус запроса на " +
-                                    RequestStatus.ОТПРАВЛЕНО + " т.к. является оператором/админом.", userId));
+                            RequestStatus.ОТПРАВЛЕНО + " т.к. является оператором/админом.", userId));
         }
-        request.setStatus(RequestStatus.ОТПРАВЛЕНО);
-        Request requestSave = requestRepository.save(request);
-
-        return RequestMapper.toRequestDto(requestSave);
+        if (request.getStatus().equals(RequestStatus.ЧЕРНОВИК)) {
+            request.setStatus(RequestStatus.ОТПРАВЛЕНО);
+            Request requestUpdate = requestRepository.save(request);
+            return RequestMapper.toRequestDto(requestUpdate);
+        } else {
+            throw new NotFoundException("Заявка имеет не имеет статус " + RequestStatus.ЧЕРНОВИК);
+        }
     }
-
-/*    @Override
-    public RequestDto updateRequest(Long userId, Long requestId) {
-        Request request = validationRequest(requestId);
-        if (!request.getUser().equals(userId)) {
-            throw new NotFoundException ("Пользователь не может редактировать чужую заявку!");
-        }
-        request.setText("");
-        return RequestMapper.toRequestDto(requestRepository.save(request));
-    }*/
 
     @Override
     public RequestDto updateRequest(Long userId, RequestDto requestDto) {
@@ -114,7 +107,7 @@ public class RequestServiceImpl implements RequestService {
         }
         if (validationUser(userId).getAdmin() == true ||
                 validationUser(userId).getOperator() == true) {
-            throw new NotFoundException (
+            throw new NotFoundException(
                     String.format("Данный пользователь %s не может обновлять запрос," +
                             " т.к. является оператором/админом.", userId));
         }
@@ -127,8 +120,27 @@ public class RequestServiceImpl implements RequestService {
 
     //TODO Методы для оператора
     @Override
-    public List<Request> getRequests(int from, int size) {
-        return null;
+    public List<RequestAllDto> getRequests(Integer sort, int from, int size) {
+        PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
+        if (sort.equals(0)) {
+            //сортировка по убыванию даты
+            return requestRepository.findAll(pageRequest)
+                    .stream()
+                    .filter(request -> request.getStatus().equals(RequestStatus.ОТПРАВЛЕНО))
+                    .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
+                    .map(RequestMapper::toRequestAllDto)
+                    .collect(Collectors.toList());
+        } else if (sort.equals(1)) {
+            //сортировка по возрастанию даты
+            return requestRepository.findAll(pageRequest)
+                    .stream()
+                    .filter(request -> request.getStatus().equals(RequestStatus.ОТПРАВЛЕНО))
+                    .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
+                    .map(RequestMapper::toRequestAllDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию");
+        }
     }
 
     @Override
