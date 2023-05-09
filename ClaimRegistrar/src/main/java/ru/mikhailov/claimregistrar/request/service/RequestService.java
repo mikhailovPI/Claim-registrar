@@ -24,9 +24,9 @@ public interface RequestService {
     //TODO Методы для оператора
     List<RequestAllDto> getRequests(Integer sort, int from, int size);
 
-    List<Request> getUserRequest(Long userId);
+    List<RequestDto> getUserRequest(Long userId, Integer sort, int from, int size);
 
-    Request acceptRequest(Long requestId);
+    RequestAllDto acceptRequest(Long requestId);
 
-    Request rejectRequest(Long requestId);
+    RequestAllDto rejectRequest(Long requestId);
 }
