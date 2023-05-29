@@ -2,6 +2,7 @@ package ru.mikhailov.claimregistrar.request.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
@@ -20,6 +21,7 @@ public class RequestUserController {
 
     //Просмотр заявок пользователя с возможностью сортировки по дате и пагинацией
     @GetMapping(path = "/{userId}/{sort}")
+    @PreAuthorize("hasAuthority('user')")
     public List<RequestAllDto> getRequestsByUser (
             @PathVariable Long userId,
             @PathVariable Integer sort,
@@ -31,6 +33,7 @@ public class RequestUserController {
 
     //Создание заявки
     @PostMapping(path = "/{userId}")
+    @PreAuthorize("hasAuthority('user')")
     public RequestDto createRequest(
             @RequestBody RequestDto request,
             @PathVariable Long userId) {
@@ -40,6 +43,7 @@ public class RequestUserController {
 
     //Отправка заявки на рассмотрение
     @PatchMapping(path = "/{userId}/request/{requestId}")
+    @PreAuthorize("hasAuthority('user')")
     public RequestDto sendRequest(
             @PathVariable Long userId,
             @PathVariable Long requestId) {
@@ -56,7 +60,10 @@ public class RequestUserController {
         return requestService.updateRequest(userId, requestId);
     }*/
 
+
+    //Редактирование заявки
     @PatchMapping(path = "/{userId}/request")
+    @PreAuthorize("hasAuthority('user')")
     public RequestDto updateRequest(
             @PathVariable Long userId,
             @RequestBody RequestDto requestDto) {

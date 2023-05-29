@@ -2,6 +2,7 @@ package ru.mikhailov.claimregistrar.request.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
@@ -20,6 +21,7 @@ public class RequestOperatorController {
 
     //Получение всех заявок с возможностью сортировки по дате и пагинацией
     @GetMapping(path = "/{sort}")
+    @PreAuthorize("hasAuthority('operator')")
     public List<RequestAllDto> getRequests(
             @PathVariable Integer sort,
             @RequestParam(name = "from", defaultValue = "0") int from,
@@ -30,6 +32,7 @@ public class RequestOperatorController {
 
     //Получение всех заявок пользователя с возможностью сортировки по дате и пагинацией
     @GetMapping(path = "users/{userId}/{sort}")
+    @PreAuthorize("hasAuthority('operator')")
     public  List<RequestDto> getUserRequest (
             @PathVariable Long userId,
             @PathVariable Integer sort,
@@ -41,6 +44,7 @@ public class RequestOperatorController {
 
     //Принятие заявки
     @PatchMapping(path = "/accept/{requestId}")
+    @PreAuthorize("hasAuthority('operator')")
     public RequestAllDto acceptRequest (@PathVariable Long requestId) {
         log.info("URL: /request/operator/{requestId}. PatchMapping/Принятие заявки/acceptRequest");
         return requestService.acceptRequest(requestId);
@@ -48,6 +52,7 @@ public class RequestOperatorController {
 
     //Отклонение заявки
     @PatchMapping(path = "/reject/{requestId}")
+    @PreAuthorize("hasAuthority('operator')")
     public RequestAllDto rejectRequest (@PathVariable Long requestId) {
         log.info("URL: /request/operator/{requestId}. PatchMapping/Отклонение заявки/rejectRequest");
         return requestService.rejectRequest(requestId);

@@ -5,11 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,51 +43,14 @@ public class User {
     @Column(name = USERS_EMAIL)
     String email;
 
-/*    @Enumerated(EnumType.STRING)
-    @ElementCollection (targetClass = UserRole.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
     @CollectionTable(name = USERS_ROLE, joinColumns = @JoinColumn(name = USERS_ID))
-    private Set<UserRole> roleSet = new HashSet<>();*/
+    private Set<UserRole> roleSet = new HashSet<>();
 
     @Column(name = USERS_ADMIN)
     Boolean admin = false;
 
     @Column(name = USERS_OPERATOR)
     Boolean operator = false;
-
-
-    //TODO: Блок от UserDetails
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return roleSet;
-//    }
-
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return null;
-//    }
-//
-//    @Override
-//    public String getUsername() {
-//        return email;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return false;
-//    }
 }
