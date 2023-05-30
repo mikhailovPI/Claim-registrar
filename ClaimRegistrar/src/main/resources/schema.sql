@@ -1,3 +1,6 @@
+drop table requests;
+drop table users;
+
 
 CREATE TABLE IF NOT EXISTS users
 (
@@ -5,8 +8,7 @@ CREATE TABLE IF NOT EXISTS users
     user_name     VARCHAR(256)                            NOT NULL,
     user_password VARCHAR(128)                            NOT NULL,
     email         VARCHAR(128)                            NOT NULL,
-    user_admin    BOOLEAN DEFAULT (false),
-    user_operator BOOLEAN DEFAULT (false),
+    user_role     VARCHAR(32)                             DEFAULT 'USER',
     CONSTRAINT pk_user PRIMARY KEY (user_id),
     CONSTRAINT UQ_USER_EMAIL UNIQUE (email)
 );

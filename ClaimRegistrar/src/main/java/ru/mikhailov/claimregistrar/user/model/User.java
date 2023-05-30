@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -17,7 +15,6 @@ import java.util.Set;
 @Entity
 @Table(name = User.TABLE_USERS, schema = User.SCHEMA_TABLE)
 public class User {
-//public class User implements UserDetails {
 
     public static final String TABLE_USERS = "users";
     public static final String SCHEMA_TABLE = "public";
@@ -43,14 +40,18 @@ public class User {
     @Column(name = USERS_EMAIL)
     String email;
 
+//    @Enumerated(EnumType.STRING)
+//    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
+//    @CollectionTable(name = USERS_ROLE, joinColumns = @JoinColumn(name = USERS_ID))
+//    private Set<UserRole> roleSet = new HashSet<>();
+
     @Enumerated(EnumType.STRING)
-    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = USERS_ROLE, joinColumns = @JoinColumn(name = USERS_ID))
-    private Set<UserRole> roleSet = new HashSet<>();
+    @Column(name = USERS_ROLE)
+    UserRole userRole = UserRole.USER;
 
-    @Column(name = USERS_ADMIN)
-    Boolean admin = false;
-
-    @Column(name = USERS_OPERATOR)
-    Boolean operator = false;
+//    @Column(name = USERS_ADMIN)
+//    Boolean admin = false;
+//
+//    @Column(name = USERS_OPERATOR)
+//    Boolean operator = false;
 }

@@ -34,12 +34,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User createUser(User user) {
         validationBodyUser(user);
-        userRepository.findByNameOrderByName()
+        userRepository.findByNameOrderByEmail()
                 .stream()
-                .filter(name -> name.equals(user.getName()))
-                .forEachOrdered(name -> {
+                .filter(email -> email.equals(user.getEmail()))
+                .forEachOrdered(email -> {
                     throw new ConflictingRequestException(
-                            String.format("Пользователь с именем %s - уже существует", name));
+                            String.format("Пользователь с email:  %s - уже существует", email));
                 });
         return userRepository.save(user);
     }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import ru.mikhailov.claimregistrar.user.model.UserRole;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +21,5 @@ public class UserDto {
 
     String email;
 
-    Boolean admin = false;
-
-    Boolean operator = false;
+    UserRole userRole;
 }
