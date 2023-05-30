@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import ru.mikhailov.claimregistrar.user.model.Permission;
 import ru.mikhailov.claimregistrar.user.model.UserRole;
 
 @Configuration
@@ -35,11 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/registration/**").permitAll()
-//                .antMatchers("/request/admin/**").hasAuthority(Permission.PERMISSION_ADMIN.getPermission())
-//                .antMatchers("/request/operator/**").hasAnyAuthority(
-//                        Permission.PERMISSION_OPERATOR.getPermission(),
-//                        Permission.PERMISSION_ADMIN.getPermission())
-//                .antMatchers("/request/user/**").hasAuthority(Permission.PERMISSION_USER.getPermission())
+                .antMatchers("/request/admin/**").hasAuthority(Permission.PERMISSION_ADMIN.getPermission())
+                .antMatchers("/request/operator/**").hasAnyAuthority(
+                        Permission.PERMISSION_OPERATOR.getPermission(),
+                        Permission.PERMISSION_ADMIN.getPermission())
+                .antMatchers("/request/user/**").hasAuthority(Permission.PERMISSION_USER.getPermission())
 
 //                .antMatchers("/request/admin/**").hasRole(String.valueOf(UserRole.ADMIN))
 //                .antMatchers("/request/operator/**").hasAnyRole(

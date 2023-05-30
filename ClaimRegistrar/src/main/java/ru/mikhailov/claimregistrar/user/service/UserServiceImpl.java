@@ -23,14 +23,6 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public List<User> getUsersList(int from, int size) {
-        PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
-        return userRepository.findAll(pageRequest)
-                .stream()
-                .collect(Collectors.toList());
-    }
-
-    @Override
     @Transactional
     public User createUser(User user) {
         validationBodyUser(user);
@@ -53,8 +45,11 @@ public class UserServiceImpl implements UserService {
 
     //TODO методы для админа
     @Override
-    public List<User> getAllUsers() {
-        return null;
+    public List<User> getAllUsers(int from, int size) {
+        PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
+        return userRepository.findAll(pageRequest)
+                .stream()
+                .collect(Collectors.toList());
     }
 
     @Override
