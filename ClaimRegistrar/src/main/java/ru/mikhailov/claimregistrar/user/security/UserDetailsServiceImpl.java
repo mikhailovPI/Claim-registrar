@@ -6,10 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.mikhailov.claimregistrar.exception.NotFoundException;
 import ru.mikhailov.claimregistrar.user.repository.UserRepository;
 
-@Service("userDetailsServiceImpl")
+@Service
 @Slf4j
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -19,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return SecurityUser.toUserDetails(userRepository.findByEmail(email)
-                .orElseThrow(() -> new NotFoundException(
+                .orElseThrow(() -> new UsernameNotFoundException(
                         String.format("Пользователь с email:  %s не существует.", email))));
     }
 }
