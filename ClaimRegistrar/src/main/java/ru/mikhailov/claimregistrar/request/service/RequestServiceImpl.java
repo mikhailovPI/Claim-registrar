@@ -12,7 +12,9 @@ import ru.mikhailov.claimregistrar.request.mapper.RequestMapper;
 import ru.mikhailov.claimregistrar.request.model.Request;
 import ru.mikhailov.claimregistrar.request.model.RequestStatus;
 import ru.mikhailov.claimregistrar.request.repository.RequestRepository;
+import ru.mikhailov.claimregistrar.user.model.Role;
 import ru.mikhailov.claimregistrar.user.model.User;
+import ru.mikhailov.claimregistrar.user.model.UserRole;
 import ru.mikhailov.claimregistrar.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
@@ -66,12 +68,22 @@ public class RequestServiceImpl implements RequestService {
 //                    String.format("Данный пользователь %s не может создавать запрос," +
 //                            " т.к. является оператором/админом.", userId));
 //        }
-        Request request = RequestMapper.toRequest(requestDto);
-        request.setPublishedOn(LocalDateTime.now());
-        request.setUser(user);
-        request.setStatus(RequestStatus.ЧЕРНОВИК);
-        Request requestSave = requestRepository.save(request);
-        return RequestMapper.toRequestDto(requestSave);
+        String name = user.getUserRole()
+                .stream()
+                .map(Role::getName)
+                .toString();
+        if (name.equals(UserRole.USER)) {
+            Request request = RequestMapper.toRequest(requestDto);
+            request.setPublishedOn(LocalDateTime.now());
+            request.setUser(user);
+            request.setStatus(RequestStatus.ЧЕРНОВИК);
+            Request requestSave = requestRepository.save(request);
+            return RequestMapper.toRequestDto(requestSave);
+        } else {
+            throw new NotFoundException(
+                    String.format("Данный пользователь %s не может создавать запрос," +
+                            " т.к. является оператором/админом.", userId));
+        }
     }
 
     @Override
