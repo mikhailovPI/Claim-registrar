@@ -35,7 +35,6 @@ public class UserServiceImpl implements UserService {
     public UserDto createUser(UserDto userDto) {
         validationBodyUser(toUser(userDto));
         User user = toUser(userDto);
-//        User user = toUser(userDto);
         if (userRepository.findByNameOrderByEmail()
                 .stream()
                 .noneMatch(email -> email.equals(userDto.getEmail()))) {

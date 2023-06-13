@@ -24,6 +24,5 @@ public class UserDto {
 
     String email;
 
-//    Set<RoleDto> userRole = new HashSet<>();
     Set<Role> userRole = new HashSet<>();
 }

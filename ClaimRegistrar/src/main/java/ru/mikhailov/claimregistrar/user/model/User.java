@@ -43,14 +43,6 @@ public class User {
     @Column(name = USERS_EMAIL)
     String email;
 
-//    @Enumerated(EnumType.STRING)
-//    @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
-//    @CollectionTable(name = USERS_ROLE, joinColumns = @JoinColumn(name = USERS_ID))
-//    private Set<UserRole> roleSet = new HashSet<>();
-
-    //@Enumerated(EnumType.STRING)
-    //@Column(name = USERS_ROLE)
-
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name = TABLE_USERS_ROLES,
             joinColumns = @JoinColumn(name = USERS_ID),

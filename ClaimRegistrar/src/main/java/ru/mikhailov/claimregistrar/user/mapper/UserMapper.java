@@ -1,11 +1,7 @@
 package ru.mikhailov.claimregistrar.user.mapper;
 
 import ru.mikhailov.claimregistrar.user.dto.UserDto;
-import ru.mikhailov.claimregistrar.user.model.Role;
 import ru.mikhailov.claimregistrar.user.model.User;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class UserMapper {
 
@@ -19,7 +15,7 @@ public class UserMapper {
         );
     }
 
-    public static  User toUser (UserDto userDto) {
+    public static User toUser(UserDto userDto) {
         return new User(
                 userDto.getId(),
                 userDto.getName(),
@@ -27,6 +23,5 @@ public class UserMapper {
                 userDto.getEmail(),
                 userDto.getUserRole()
         );
-
     }
 }
