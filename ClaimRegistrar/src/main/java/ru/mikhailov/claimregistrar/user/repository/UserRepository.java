@@ -5,11 +5,13 @@ import org.springframework.data.jpa.repository.Query;
 import ru.mikhailov.claimregistrar.user.model.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("select c.name from User c")
-    List<String> findByNameOrderByName();
+    @Query("select u.email from User u")
+    List<String> findByNameOrderByEmail();
 
-    //User findByUsername(String name);
+    Optional<User> findByEmail(String email);
+
 }

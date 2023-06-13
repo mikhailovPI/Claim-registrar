@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import ru.mikhailov.claimregistrar.user.model.Role;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -20,7 +24,5 @@ public class UserDto {
 
     String email;
 
-    Boolean admin = false;
-
-    Boolean operator = false;
+    Set<Role> userRole = new HashSet<>();
 }

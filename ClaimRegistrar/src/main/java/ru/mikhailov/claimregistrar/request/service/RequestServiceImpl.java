@@ -60,12 +60,12 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     public RequestDto createRequest(RequestDto requestDto, Long userId) {
         User user = validationUser(userId);
-        if (user.getAdmin() == true ||
-                user.getOperator() == true) {
-            throw new NotFoundException(
-                    String.format("Данный пользователь %s не может создавать запрос," +
-                            " т.к. является оператором/админом.", userId));
-        }
+//        if (user.getAdmin() == true ||
+//                user.getOperator() == true) {
+//            throw new NotFoundException(
+//                    String.format("Данный пользователь %s не может создавать запрос," +
+//                            " т.к. является оператором/админом.", userId));
+//        }
         Request request = RequestMapper.toRequest(requestDto);
         request.setPublishedOn(LocalDateTime.now());
         request.setUser(user);
@@ -81,12 +81,12 @@ public class RequestServiceImpl implements RequestService {
         if (!request.getUser().getId().equals(userId)) {
             throw new NotFoundException("Пользователь не может отправить чужую заявку!");
         }
-        if (validationUser(userId).getAdmin() == true ||
-                validationUser(userId).getOperator() == true) {
-            throw new NotFoundException(
-                    String.format("Данный пользователь %s не может изменять статус запроса на " +
-                            RequestStatus.ОТПРАВЛЕНО + " т.к. является оператором/админом.", userId));
-        }
+//        if (validationUser(userId).getAdmin() == true ||
+//                validationUser(userId).getOperator() == true) {
+//            throw new NotFoundException(
+//                    String.format("Данный пользователь %s не может изменять статус запроса на " +
+//                            RequestStatus.ОТПРАВЛЕНО + " т.к. является оператором/админом.", userId));
+//        }
         if (request.getStatus().equals(RequestStatus.ЧЕРНОВИК)) {
             request.setStatus(RequestStatus.ОТПРАВЛЕНО);
             Request requestUpdate = requestRepository.save(request);
@@ -105,12 +105,12 @@ public class RequestServiceImpl implements RequestService {
         if (!request.getStatus().equals(RequestStatus.ЧЕРНОВИК)) {
             throw new NotFoundException("Статус заявки не позволяет ее редактировать. Должен быть статус - черновик!");
         }
-        if (validationUser(userId).getAdmin() == true ||
-                validationUser(userId).getOperator() == true) {
-            throw new NotFoundException(
-                    String.format("Данный пользователь %s не может обновлять запрос," +
-                            " т.к. является оператором/админом.", userId));
-        }
+//        if (validationUser(userId).getAdmin() == true ||
+//                validationUser(userId).getOperator() == true) {
+//            throw new NotFoundException(
+//                    String.format("Данный пользователь %s не может обновлять запрос," +
+//                            " т.к. является оператором/админом.", userId));
+//        }
 
         request.setText(requestDto.getText());
         Request requestSave = requestRepository.save(request);

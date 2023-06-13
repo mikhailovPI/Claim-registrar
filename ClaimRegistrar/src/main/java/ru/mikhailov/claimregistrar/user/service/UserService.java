@@ -1,18 +1,17 @@
 package ru.mikhailov.claimregistrar.user.service;
 
+import ru.mikhailov.claimregistrar.user.dto.UserDto;
 import ru.mikhailov.claimregistrar.user.model.User;
 
 import java.util.List;
 
 public interface UserService {
 
-    List<User> getUsersList(int from, int size);
-
-    User createUser(User user);
+    UserDto createUser(UserDto userDto);
 
     void deleteUserById(Long userId);
 
-    List<User> getAllUsers();
+    List<User> getAllUsers(int from, int size);
 
     User getUserByName(String text);
 
