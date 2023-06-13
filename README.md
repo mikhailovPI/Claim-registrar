@@ -24,7 +24,7 @@ OPERATOR;
 
 
 ***Схема базы данных:***
->![db.png](ClaimRegistrar/info/schema_database.png)
+>![schema_database.png](ClaimRegistrar/info/schema_database.png)
 
 
 
