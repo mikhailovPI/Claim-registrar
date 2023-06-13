@@ -50,9 +50,10 @@ public class User {
 
     //@Enumerated(EnumType.STRING)
     //@Column(name = USERS_ROLE)
+
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name = TABLE_USERS_ROLES,
             joinColumns = @JoinColumn(name = USERS_ID),
             inverseJoinColumns = @JoinColumn(name = ROLE_ID))
-    Set<Role> userRole = new HashSet<>();
+    private Set<Role> userRole = new HashSet<>();
 }

@@ -4,6 +4,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -25,4 +27,7 @@ public class Role {
 
     @Column(name = ROLE_NAME)
     String name;
+
+//    @ManyToMany(mappedBy="userRole")
+//    List<User> users = new ArrayList<>();
 }

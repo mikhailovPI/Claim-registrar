@@ -3,6 +3,7 @@ package ru.mikhailov.claimregistrar.user.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ru.mikhailov.claimregistrar.user.dto.UserDto;
 import ru.mikhailov.claimregistrar.user.model.User;
 import ru.mikhailov.claimregistrar.user.service.UserService;
 
@@ -14,8 +15,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(path = "/registration/users")
-    public User createUser(@RequestBody User user) {
+    public UserDto createUser(@RequestBody UserDto userDto) {
         log.info("URL: /users. PostMapping/Создание пользователя/createUser");
-        return userService.createUser(user);
+        return userService.createUser(userDto);
     }
 }
