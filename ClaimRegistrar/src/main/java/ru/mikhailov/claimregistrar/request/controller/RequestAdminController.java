@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.mikhailov.claimregistrar.request.service.RequestService;
+import ru.mikhailov.claimregistrar.user.dto.UserDto;
 import ru.mikhailov.claimregistrar.user.model.User;
 import ru.mikhailov.claimregistrar.user.service.UserService;
 
@@ -21,33 +22,40 @@ public class RequestAdminController {
     private final UserService userService;
 
     //Посмотреть список всех пользователей
-    @GetMapping(path = "/users")
-    public List<User> getAllUsers(
+    @GetMapping(path = "/{adminId}/users")
+    public List<UserDto> getAllUsers(
+            @PathVariable Long adminId,
             @RequestParam(name = "from", defaultValue = "0") int from,
             @RequestParam(name = "size", defaultValue = "5") int size) {
-        log.info("URL: /request/admin/users. GetMapping/Получить всех пользователей/getAllUsers");
-        return userService.getAllUsers(from, size);
+        log.info("URL: /request/admin/{adminId}/users. GetMapping/Получить всех пользователей/getAllUsers");
+        return userService.getAllUsers(adminId, from, size);
     }
 
     //Поиск пользователя по имени
     @GetMapping(path = "/user")
-    public User getUserByName(
+    public UserDto getUserByName(
             @RequestParam(name = "text", required = false) String text) {
         log.info("URL: /request/admin/user. GetMapping/Поиск пользователя по имени/getUserByName");
         return userService.getUserByName(text);
     }
 
     //Назначение прав пользователей
-    @PatchMapping(path = "/user/{userId}")
-    public User assignRightsOperator(@PathVariable Long userId) {
-        log.info("URL: /request/admin/user. GetMapping/Поиск пользователя по имени/getUserByName");
-        return userService.assignRightsOperator(userId);
+    @PatchMapping(path = "/{adminId}/user/{userId}")
+    public UserDto assignRightsOperator(
+            @PathVariable Long adminId,
+            @PathVariable Long userId) {
+        log.info("URL: /request/admin/{adminId}/user/{userId}. PatchMapping/Поиск пользователя " +
+                "по имени/getUserByName");
+        return userService.assignRightsOperator(adminId, userId);
     }
 
     //Удаление пользователя по id
-    @DeleteMapping(path = "/users/{userId}")
-    public void deleteUserById(@PathVariable Long userId) {
-        log.info("URL: /users/{userId}. DeleteMapping/Удаление пользователя с id: " + userId + "/deleteUserById");
-        userService.deleteUserById(userId);
+    @DeleteMapping(path = "/{adminId}/users/{userId}")
+    public void deleteUserById(
+            @PathVariable Long adminId,
+            @PathVariable Long userId) {
+        log.info("URL: /{adminId}/users/{userId}. DeleteMapping/Удаление пользователя с id: "
+                + userId + "/deleteUserById");
+        userService.deleteUserById(adminId, userId);
     }
 }

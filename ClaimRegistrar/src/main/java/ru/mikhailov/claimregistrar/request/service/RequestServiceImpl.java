@@ -32,15 +32,15 @@ public class RequestServiceImpl implements RequestService {
 
     private final RequestRepository requestRepository;
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
 
     //TODO Методы для пользователя
     @Override
     public List<RequestDto> getRequestsByUser(Long userId, Integer sort, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
-        if (!validationUser(userId).getId().equals(userId)) {
+        User user = validationUser(userId);
+        if (!user.getId().equals(userId)) {
             throw new NotFoundException(
-                    String.format("Данный пользователь %s не может смотреть чужие запросы", userId));
+                    String.format("Пользователь %s не может смотреть чужие запросы", user.getName()));
         }
         if (sort.equals(0)) {
             //сортировка по возрастанию даты
@@ -57,7 +57,7 @@ public class RequestServiceImpl implements RequestService {
                     .map(RequestMapper::toRequestDto)
                     .collect(Collectors.toList());
         } else {
-            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию");
+            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию!");
         }
     }
 
@@ -71,7 +71,9 @@ public class RequestServiceImpl implements RequestService {
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может создавать заявку, " +
-                                    "т.к. является OPERATOR или ADMIN.", user.getName()));
+                                            "т.к. не является %d.",
+                                    user.getName(),
+                                    String.valueOf(UserRole.USER)));
                 });
         Request request = RequestMapper.toRequest(requestDto);
         request.setPublishedOn(LocalDateTime.now());
@@ -94,7 +96,9 @@ public class RequestServiceImpl implements RequestService {
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может отправить заявку," +
-                                    " т.к. является OPERATOR или ADMIN.", user.getName()));
+                                            " т.к. не является %d.",
+                                    user.getName(),
+                                    String.valueOf(UserRole.USER)));
                 });
         if (request.getStatus().equals(RequestStatus.DRAFT)) {
             request.setStatus(RequestStatus.SHIPPED);
@@ -117,7 +121,9 @@ public class RequestServiceImpl implements RequestService {
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может редактировать заявку, " +
-                                    "т.к. является OPERATOR или ADMIN.", user.getName()));
+                                            "т.к. не является %d.",
+                                    user.getName(),
+                                    String.valueOf(UserRole.USER)));
                 });
         if (!request.getUser().getId().equals(userId)) {
             throw new NotFoundException("Пользователь не может редактировать чужую заявку!");
@@ -195,7 +201,9 @@ public class RequestServiceImpl implements RequestService {
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может принимать заявку, " +
-                                    "т.к. является USER или ADMIN.", user.getName()));
+                                            "т.к. не является %d.",
+                                    user.getName(),
+                                    String.valueOf(UserRole.OPERATOR)));
                 });
         if (request.getStatus().equals(RequestStatus.SHIPPED)) {
             request.setStatus(RequestStatus.ACCEPTED);
@@ -217,7 +225,9 @@ public class RequestServiceImpl implements RequestService {
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может отклонять заявку, " +
-                                    "т.к. является USER или ADMIN.", user.getName()));
+                                            "т.к. не является %d.",
+                                    user.getName(),
+                                    String.valueOf(UserRole.OPERATOR)));
                 });
         if (request.getStatus().equals(RequestStatus.SHIPPED) ||
                 request.getStatus().equals(RequestStatus.ACCEPTED)) {

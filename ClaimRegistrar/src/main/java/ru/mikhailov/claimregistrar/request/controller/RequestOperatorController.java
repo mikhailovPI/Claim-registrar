@@ -31,6 +31,7 @@ public class RequestOperatorController {
     //Получение всех заявок пользователя по его имени с возможностью сортировки по дате и пагинацией
     @GetMapping(path = "/users/{userId}/{sort}")
     public List<RequestDto> getUserRequest(
+            //@RequestParam(name = "text", required = false) String text
             @PathVariable Long userId,
             @PathVariable Integer sort,
             @RequestParam(name = "from", defaultValue = "0") int from,

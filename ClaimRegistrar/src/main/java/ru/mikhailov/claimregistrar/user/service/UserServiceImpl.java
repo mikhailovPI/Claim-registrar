@@ -7,9 +7,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mikhailov.claimregistrar.config.PageRequestOverride;
 import ru.mikhailov.claimregistrar.exception.ConflictingRequestException;
+import ru.mikhailov.claimregistrar.exception.NotFoundException;
 import ru.mikhailov.claimregistrar.user.dto.UserDto;
+import ru.mikhailov.claimregistrar.user.mapper.UserMapper;
 import ru.mikhailov.claimregistrar.user.model.Role;
 import ru.mikhailov.claimregistrar.user.model.User;
+import ru.mikhailov.claimregistrar.user.model.UserRole;
 import ru.mikhailov.claimregistrar.user.repository.RoleRepository;
 import ru.mikhailov.claimregistrar.user.repository.UserRepository;
 
@@ -69,27 +72,76 @@ public class UserServiceImpl implements UserService {
 
     //TODO методы для админа
     @Override
-    public List<User> getAllUsers(int from, int size) {
+    public List<UserDto> getAllUsers(Long adminId, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
+        User admin = validationUser(adminId);
+        admin.getUserRole()
+                .stream()
+                .filter(role -> !role.getName().equals(String.valueOf(UserRole.ADMIN)))
+                .forEach(role -> {
+                    throw new NotFoundException(
+                            String.format("Пользователь %s не может просматривать всех пользователей, " +
+                                            "т.к. не является %d.",
+                                    admin.getName(),
+                                    String.valueOf(UserRole.ADMIN)));
+                });
         return userRepository.findAll(pageRequest)
                 .stream()
+                .map(UserMapper::toUserDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public User getUserByName(String text) {
-        return null;
-    }
-
-    @Override
-    public User assignRightsOperator(Long userId) {
+    public UserDto getUserByName(String text) {
         return null;
     }
 
     @Override
     @Transactional
-    public void deleteUserById(Long userId) {
+    public UserDto assignRightsOperator(Long adminId, Long userId) {
+        User admin = validationUser(adminId);
+        User user = validationUser(userId);
+        admin.getUserRole()
+                .stream()
+                .filter(role -> !role.getName().equals(String.valueOf(UserRole.ADMIN)))
+                .forEach(role -> {
+                    throw new NotFoundException(
+                            String.format("Пользователь %s не может назначить новую роль пользователю, " +
+                                            "т.к. не является %d.",
+                                    admin.getName(),
+                                    String.valueOf(UserRole.ADMIN)));
+                });
+        user.getUserRole()
+                .stream()
+                .filter(role -> role.getName().equals(String.valueOf(UserRole.USER)))
+                .forEach(role -> role.setName(String.valueOf(UserRole.OPERATOR)));
+        userRepository.save(user);
+        return toUserDto(user);
+    }
+
+    @Override
+    @Transactional
+    public void deleteUserById(Long adminId, Long userId) {
+        User admin = validationUser(adminId);
+        validationUser(userId);
+        admin.getUserRole()
+                .stream()
+                .filter(role -> !role.getName().equals(String.valueOf(UserRole.ADMIN)))
+                .forEach(role -> {
+                    throw new NotFoundException(
+                            String.format("Пользователь %s не может удалить пользователя, " +
+                                            "т.к. не является %d.",
+                                    admin.getName(),
+                                    String.valueOf(UserRole.ADMIN)));
+                });
         userRepository.deleteById(userId);
     }
 
+    private User validationUser(Long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(
+                        String.format("Пользователь %s не существует.", userId)));
+    }
+
 }
+

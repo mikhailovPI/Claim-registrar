@@ -1,5 +1,6 @@
 package ru.mikhailov.claimregistrar.user.service;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import ru.mikhailov.claimregistrar.user.dto.UserDto;
 import ru.mikhailov.claimregistrar.user.model.User;
 
@@ -9,11 +10,11 @@ public interface UserService {
 
     UserDto createUser(UserDto userDto);
 
-    void deleteUserById(Long userId);
+    void deleteUserById(Long adminId, Long userId);
 
-    List<User> getAllUsers(int from, int size);
+    List<UserDto> getAllUsers(Long adminId, int from, int size);
 
-    User getUserByName(String text);
+    UserDto getUserByName(String text);
 
-    User assignRightsOperator(Long userId);
+    UserDto assignRightsOperator(Long adminId, Long userId);
 }
