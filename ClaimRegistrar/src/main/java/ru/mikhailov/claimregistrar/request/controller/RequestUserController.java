@@ -27,7 +27,7 @@ public class RequestUserController {
             @PathVariable Integer sort,
             @RequestParam(name = "from", defaultValue = "0") int from,
             @RequestParam(name = "size", defaultValue = "5") int size) {
-        log.info("URL: /request/user/{userId}. GetMapping/Просмотр всех заявок пользователя/createRequest");
+        log.info("URL: /request/users/{userId}. GetMapping/Просмотр всех заявок пользователя/createRequest");
         return requestService.getRequestsByUser(userId, sort, from, size);
     }
 
@@ -45,7 +45,7 @@ public class RequestUserController {
     public RequestDto sendRequest(
             @PathVariable Long userId,
             @PathVariable Long requestId) {
-        log.info("URL: /request/{userId}/request/{requestId}. PatchMapping/Отправка заявки/sendRequest");
+        log.info("URL: /request/users/{userId}/request/{requestId}. PatchMapping/Отправка заявки/sendRequest");
         return requestService.sendRequest(userId, requestId);
     }
 
@@ -55,7 +55,7 @@ public class RequestUserController {
             @PathVariable Long userId,
             @PathVariable Long requestId,
             @RequestBody RequestUpdateDto requestUpdateDto) {
-        log.info("URL: /request/{userId}/request. PatchMapping/Редактирование заявки/updateRequest");
+        log.info("URL: /request/users/{userId}/request/{requestId}. PatchMapping/Редактирование заявки/updateRequest");
         return requestService.updateRequest(userId, requestId, requestUpdateDto);
     }
 }

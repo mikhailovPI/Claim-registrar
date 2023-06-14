@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.mikhailov.claimregistrar.config.PageRequestOverride;
 import ru.mikhailov.claimregistrar.exception.ConflictingRequestException;
 import ru.mikhailov.claimregistrar.exception.NotFoundException;
-import ru.mikhailov.claimregistrar.request.model.Request;
 import ru.mikhailov.claimregistrar.request.repository.RequestRepository;
 import ru.mikhailov.claimregistrar.user.dto.UserDto;
 import ru.mikhailov.claimregistrar.user.mapper.UserMapper;
@@ -68,7 +67,7 @@ public class UserServiceImpl implements UserService {
             user = userRepository.save(user);
         } else {
             throw new ConflictingRequestException(
-                    String.format("Пользователь с email:  %s - уже существует", userDto.getEmail()));
+                    String.format("Пользователь с email:  %s - уже существует!", userDto.getEmail()));
         }
         return toUserDto(user);
     }
@@ -84,9 +83,9 @@ public class UserServiceImpl implements UserService {
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может просматривать всех пользователей, " +
-                                            "т.к. не является %d.",
+                                            "т.к. не является %s!",
                                     admin.getName(),
-                                    String.valueOf(UserRole.ADMIN)));
+                                    UserRole.ADMIN));
                 });
         return userRepository.findAll(pageRequest)
                 .stream()
@@ -110,9 +109,9 @@ public class UserServiceImpl implements UserService {
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может назначить новую роль пользователю, " +
-                                            "т.к. не является %d.",
+                                            "т.к. не является %s!",
                                     admin.getName(),
-                                    String.valueOf(UserRole.ADMIN)));
+                                    UserRole.ADMIN));
                 });
         user.getUserRole()
                 .stream()
@@ -133,9 +132,9 @@ public class UserServiceImpl implements UserService {
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может удалить пользователя, " +
-                                            "т.к. не является %d.",
+                                            "т.к. не является %s!",
                                     admin.getName(),
-                                    String.valueOf(UserRole.ADMIN)));
+                                    UserRole.ADMIN));
                 });
         requestRepository.deleteRequestsByUserId(userId);
         userRepository.deleteById(userId);
@@ -145,7 +144,7 @@ public class UserServiceImpl implements UserService {
     private User validationUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(
-                        String.format("Пользователь %s не существует.", userId)));
+                        String.format("Пользователь %s не существует!", userId)));
     }
 
 }

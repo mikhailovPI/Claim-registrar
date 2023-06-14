@@ -29,12 +29,9 @@ public class RequestAdminController {
     }
 
     //Поиск пользователя по имени
-//    @GetMapping(path = "/user")
     @GetMapping(path = "/user/{text}")
     public UserDto getUserByName(
-            @PathVariable String text
-    //        @RequestParam(name = "text", required = false) String text
-    ) {
+            @PathVariable String text) {
         log.info("URL: /request/admin/user. GetMapping/Поиск пользователя по имени/getUserByName");
         return userService.getUserByName(text);
     }
@@ -54,7 +51,7 @@ public class RequestAdminController {
     public void deleteUserById(
             @PathVariable Long adminId,
             @PathVariable Long userId) {
-        log.info("URL: /{adminId}/users/{userId}. DeleteMapping/Удаление пользователя с id: "
+        log.info("URL: /request/admin/{adminId}/users/{userId}. DeleteMapping/Удаление пользователя с id: "
                 + userId + "/deleteUserById");
         userService.deleteUserById(adminId, userId);
     }

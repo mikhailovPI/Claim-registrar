@@ -16,7 +16,6 @@ import ru.mikhailov.claimregistrar.request.model.RequestStatus;
 import ru.mikhailov.claimregistrar.request.repository.RequestRepository;
 import ru.mikhailov.claimregistrar.user.model.User;
 import ru.mikhailov.claimregistrar.user.model.UserRole;
-import ru.mikhailov.claimregistrar.user.repository.RoleRepository;
 import ru.mikhailov.claimregistrar.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
@@ -40,7 +39,7 @@ public class RequestServiceImpl implements RequestService {
         User user = validationUser(userId);
         if (!user.getId().equals(userId)) {
             throw new NotFoundException(
-                    String.format("Пользователь %s не может смотреть чужие запросы", user.getName()));
+                    String.format("Пользователь %s не может смотреть чужие запросы!", user.getName()));
         }
         if (sort.equals(0)) {
             //сортировка по возрастанию даты
@@ -57,7 +56,8 @@ public class RequestServiceImpl implements RequestService {
                     .map(RequestMapper::toRequestDto)
                     .collect(Collectors.toList());
         } else {
-            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию!");
+            throw new NotFoundException(
+                    String.format("Сортировка возможна только по возрастанию или убыванию!"));
         }
     }
 
@@ -70,10 +70,9 @@ public class RequestServiceImpl implements RequestService {
                 .filter(role -> !role.getName().equals(String.valueOf(UserRole.USER)))
                 .forEach(role -> {
                     throw new NotFoundException(
-                            String.format("Пользователь %s не может создавать заявку, " +
-                                            "т.к. не является %d.",
+                            String.format("Пользователь %s не может создавать заявку, т.к. не является %s!",
                                     user.getName(),
-                                    String.valueOf(UserRole.USER)));
+                                    UserRole.USER));
                 });
         Request request = RequestMapper.toRequest(requestDto);
         request.setPublishedOn(LocalDateTime.now());
@@ -88,7 +87,8 @@ public class RequestServiceImpl implements RequestService {
         Request request = validationRequest(requestId);
         User user = validationUser(userId);
         if (!request.getUser().getId().equals(userId)) {
-            throw new NotFoundException("Пользователь не может отправить чужую заявку!");
+            throw new NotFoundException(
+                    String.format("Пользователь %s не может отправить чужую заявку!", user.getName()));
         }
         user.getUserRole()
                 .stream()
@@ -96,9 +96,9 @@ public class RequestServiceImpl implements RequestService {
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может отправить заявку," +
-                                            " т.к. не является %d.",
+                                            " т.к. не является %s!",
                                     user.getName(),
-                                    String.valueOf(UserRole.USER)));
+                                    UserRole.USER));
                 });
         if (request.getStatus().equals(RequestStatus.DRAFT)) {
             request.setStatus(RequestStatus.SHIPPED);
@@ -106,8 +106,9 @@ public class RequestServiceImpl implements RequestService {
             return RequestMapper.toRequestDto(requestUpdate);
         } else {
             throw new NotFoundException(
-                    String.format("Заявка имеет статус %s, а должна иметь статус '" +
-                            RequestStatus.DRAFT + "'!", request.getStatus()));
+                    String.format("Заявка имеет статус %s, а должна иметь статус '%s'!",
+                            request.getStatus(),
+                            RequestStatus.DRAFT));
         }
     }
 
@@ -121,16 +122,18 @@ public class RequestServiceImpl implements RequestService {
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может редактировать заявку, " +
-                                            "т.к. не является %d.",
+                                            "т.к. не является %s!",
                                     user.getName(),
-                                    String.valueOf(UserRole.USER)));
+                                    UserRole.USER));
                 });
         if (!request.getUser().getId().equals(userId)) {
-            throw new NotFoundException("Пользователь не может редактировать чужую заявку!");
+            throw new NotFoundException(
+                    String.format("Пользователь %s не может редактировать чужую заявку!", user.getName()));
         }
         if (!request.getStatus().equals(RequestStatus.DRAFT)) {
-            throw new NotFoundException("Статус заявки не позволяет ее редактировать. Должен быть статус - '"
-                    + RequestStatus.DRAFT + "'!");
+            throw new NotFoundException(
+                    String.format("Статус заявки не позволяет ее редактировать. Должен быть статус - '%s'!",
+                            RequestStatus.REJECTED));
         }
         request.setText(requestUprateDto.getText());
         Request requestSave = requestRepository.save(request);
@@ -158,7 +161,8 @@ public class RequestServiceImpl implements RequestService {
                     .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
         } else {
-            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию");
+            throw new NotFoundException(
+                    String.format("Сортировка возможна только по возрастанию или убыванию!"));
         }
     }
 
@@ -185,49 +189,50 @@ public class RequestServiceImpl implements RequestService {
                     .map(RequestMapper::toRequestDto)
                     .collect(Collectors.toList());
         } else {
-            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию");
+            throw new NotFoundException(
+                    String.format("Сортировка возможна только по возрастанию или убыванию!"));
         }
     }
 
-
     @Override
     @Transactional
-    public RequestAllDto acceptRequest(Long requestId) {
+    public RequestAllDto acceptRequest(Long operatorId, Long requestId) {
         Request request = validationRequest(requestId);
-        User user = validationUser(request.getUser().getId());
+        User user = validationUser(operatorId);
         user.getUserRole()
                 .stream()
                 .filter(role -> !role.getName().equals(String.valueOf(UserRole.OPERATOR)))
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может принимать заявку, " +
-                                            "т.к. не является %d.",
+                                            "т.к. не является %s!",
                                     user.getName(),
-                                    String.valueOf(UserRole.OPERATOR)));
+                                    UserRole.OPERATOR));
                 });
         if (request.getStatus().equals(RequestStatus.SHIPPED)) {
             request.setStatus(RequestStatus.ACCEPTED);
             Request requestUpdate = requestRepository.save(request);
             return RequestMapper.toRequestAllDto(requestUpdate);
         } else {
-            throw new NotFoundException("Заявка не имеет статус " + RequestStatus.SHIPPED);
+            throw new NotFoundException(
+                    String.format("Заявка не имеет статус %s!", RequestStatus.SHIPPED));
         }
     }
 
     @Override
     @Transactional
-    public RequestAllDto rejectRequest(Long requestId) {
+    public RequestAllDto rejectRequest(Long operatorId, Long requestId) {
         Request request = validationRequest(requestId);
-        User user = validationUser(request.getUser().getId());
+        User user = validationUser(operatorId);
         user.getUserRole()
                 .stream()
                 .filter(role -> !role.getName().equals(String.valueOf(UserRole.OPERATOR)))
                 .forEach(role -> {
                     throw new NotFoundException(
                             String.format("Пользователь %s не может отклонять заявку, " +
-                                            "т.к. не является %d.",
+                                            "т.к. не является %s!",
                                     user.getName(),
-                                    String.valueOf(UserRole.OPERATOR)));
+                                    UserRole.OPERATOR));
                 });
         if (request.getStatus().equals(RequestStatus.SHIPPED) ||
                 request.getStatus().equals(RequestStatus.ACCEPTED)) {
@@ -235,8 +240,10 @@ public class RequestServiceImpl implements RequestService {
             Request requestUpdate = requestRepository.save(request);
             return RequestMapper.toRequestAllDto(requestUpdate);
         } else {
-            throw new NotFoundException("Заявка не имеет статус " + RequestStatus.SHIPPED + " или "
-                    + RequestStatus.ACCEPTED);
+            throw new NotFoundException(
+                    String.format("Заявка не имеет статус %s или %s!",
+                            RequestStatus.SHIPPED,
+                            RequestStatus.ACCEPTED));
         }
     }
 
@@ -244,12 +251,12 @@ public class RequestServiceImpl implements RequestService {
     private User validationUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(
-                        String.format("Пользователь %s не существует.", userId)));
+                        String.format("Пользователь %s не существует!", userId)));
     }
 
     private Request validationRequest(Long requestId) {
         return requestRepository.findById(requestId)
                 .orElseThrow(() -> new NotFoundException(
-                        String.format("Запрос %s не существует.", requestId)));
+                        String.format("Запрос %s не существует!", requestId)));
     }
 }

@@ -25,7 +25,7 @@ public interface RequestService {
 
     List<RequestDto> getUserRequest(Long userId, Integer sort, int from, int size);
 
-    RequestAllDto acceptRequest(Long requestId);
+    RequestAllDto acceptRequest(Long operatorId, Long requestId);
 
-    RequestAllDto rejectRequest(Long requestId);
+    RequestAllDto rejectRequest(Long operatorId, Long requestId);
 }

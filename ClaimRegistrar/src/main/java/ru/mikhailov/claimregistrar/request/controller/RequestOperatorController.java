@@ -36,21 +36,28 @@ public class RequestOperatorController {
             @PathVariable Integer sort,
             @RequestParam(name = "from", defaultValue = "0") int from,
             @RequestParam(name = "size", defaultValue = "5") int size) {
-        log.info("URL: /request/operator/user/{userId}. GetMapping/Получение всех заявок пользователя/getUserRequest");
+        log.info("URL: /request/operator/user/{userId}. " +
+                "GetMapping/Получение всех заявок пользователя/getUserRequest");
         return requestService.getUserRequest(userId, sort, from, size);
     }
 
     //Принятие заявки
-    @PatchMapping(path = "/accept/{requestId}")
-    public RequestAllDto acceptRequest(@PathVariable Long requestId) {
-        log.info("URL: /request/operator/{requestId}. PatchMapping/Принятие заявки/acceptRequest");
-        return requestService.acceptRequest(requestId);
+    @PatchMapping(path = "/{operatorId}/accept/{requestId}")
+    public RequestAllDto acceptRequest(
+            @PathVariable Long operatorId,
+            @PathVariable Long requestId) {
+        log.info("URL: /request/operator//{operatorId}/accept/{requestId}. " +
+                "PatchMapping/Принятие заявки/acceptRequest");
+        return requestService.acceptRequest(operatorId, requestId);
     }
 
     //Отклонение заявки
-    @PatchMapping(path = "/reject/{requestId}")
-    public RequestAllDto rejectRequest(@PathVariable Long requestId) {
-        log.info("URL: /request/operator/{requestId}. PatchMapping/Отклонение заявки/rejectRequest");
-        return requestService.rejectRequest(requestId);
+    @PatchMapping(path = "/{operatorId}/reject/{requestId}")
+    public RequestAllDto rejectRequest(
+            @PathVariable Long operatorId,
+            @PathVariable Long requestId) {
+        log.info("URL: /request/operator/{operatorId}/reject/{requestId}. " +
+                "PatchMapping/Отклонение заявки/rejectRequest");
+        return requestService.rejectRequest(operatorId, requestId);
     }
 }
