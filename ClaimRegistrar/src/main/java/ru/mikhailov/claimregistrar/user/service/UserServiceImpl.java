@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.mikhailov.claimregistrar.config.PageRequestOverride;
 import ru.mikhailov.claimregistrar.exception.ConflictingRequestException;
 import ru.mikhailov.claimregistrar.exception.NotFoundException;
+import ru.mikhailov.claimregistrar.request.model.Request;
+import ru.mikhailov.claimregistrar.request.repository.RequestRepository;
 import ru.mikhailov.claimregistrar.user.dto.UserDto;
 import ru.mikhailov.claimregistrar.user.mapper.UserMapper;
 import ru.mikhailov.claimregistrar.user.model.Role;
@@ -33,6 +35,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final RequestRepository requestRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -134,7 +137,9 @@ public class UserServiceImpl implements UserService {
                                     admin.getName(),
                                     String.valueOf(UserRole.ADMIN)));
                 });
+        requestRepository.deleteRequestsByUserId(userId);
         userRepository.deleteById(userId);
+
     }
 
     private User validationUser(Long userId) {
