@@ -1,0 +1,1337 @@
+{
+	"info": {
+		"_postman_id": "a53fac88-9952-439d-bc88-9ffdda40b657",
+		"name": "ClaimRegistrar",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21599406",
+		"_collection_link": "https://universal-rocket-498870.postman.co/workspace/Team-Workspace~075702bc-79a9-424e-8188-284e8c4fdb15/collection/21599406-a53fac88-9952-439d-bc88-9ffdda40b657?action=share&creator=21599406&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "User endpoint",
+			"item": [
+				{
+					"name": "Создание пользователя 1 (user)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Tatiana\",\r\n  \"password\": \"1111\",\r\n  \"email\": \"1111@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"USER\"\r\n      }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/registration/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя 2 (operator, admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Gaga\",\r\n  \"password\": \"2222\",\r\n  \"email\": \"2222@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"OPERATOR\"\r\n      },\r\n      {\r\n          \"name\": \"ADMIN\"\r\n      }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/registration/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя 3 (user)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Pavel\",\r\n  \"password\": \"3333\",\r\n  \"email\": \"3333@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"USER\"\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/registration/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя 4 (admin)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Nikola\",\r\n  \"password\": \"4444\",\r\n  \"email\": \"4444@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"ADMIN\"\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/registration/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя 5 (operator)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Gena\",\r\n  \"password\": \"5555\",\r\n  \"email\": \"5555@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"OPERATOR\"\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/registration/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя 6 (user)",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Lutik\",\r\n  \"password\": \"6666\",\r\n  \"email\": \"6666@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"USER\"\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/registration/users"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request user endpoint",
+			"item": [
+				{
+					"name": "Создание запроса 1 от user 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1111",
+								"username": "1111@mail.ru"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Запрос от пользователя 1 и он очень важен!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание запроса 2 от user 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "1111@mail.ru",
+								"password": "1111"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"А этот запрос все также от пользователя 1 и он очень классный!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получить все заявки User 1 с сортировкой по возрастанию даты",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "1111@mail.ru",
+								"password": "1111"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId/:sort",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId",
+								":sort"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получить все заявки User 1 с сортировкой по убыванию даты",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "1111@mail.ru",
+								"password": "1111"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId/:sort",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId",
+								":sort"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение статуса запроса 1 от User 1 на ОТПРАВЛЕНО",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "1111@mail.ru",
+								"password": "1111"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId/request/:requestId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId",
+								"request",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "requestId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Обновление запроса 2 от User 1",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "1111@mail.ru",
+								"password": "1111"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Запрос от пользователя 1 и он решил обновить текст!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/update/:userId/request/:requestId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								"update",
+								":userId",
+								"request",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "requestId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение статуса запроса 2 от User 1 на ОТПРАВЛЕНО",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "1111@mail.ru",
+								"password": "1111"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId/request/:requestId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId",
+								"request",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "requestId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание запроса 3 от user 3",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "3333",
+								"username": "3333@mail.ru"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Запрос от пользователя 3 и он очень важен!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание запроса 4 от user 6",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "6666@mail.ru",
+								"password": "6666"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Запрос от пользователя 6 и он очень важен!\",\r\n  \"status\": \"ЧЕРНОВИК\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получить все заявки User 1 с сортировкой по возрастанию даты со статусом ОТПРАВЛЕНО",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "1111@mail.ru",
+								"password": "1111"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId/:sort",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId",
+								":sort"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение статуса запроса 3 от User 3 на ОТПРАВЛЕНО",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "1111@mail.ru",
+								"password": "1111"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId/request/:requestId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId",
+								"request",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "3"
+								},
+								{
+									"key": "requestId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание запроса 5 от user 3",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "3333",
+								"username": "3333@mail.ru"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Запрос от пользователя 3 и очень классный!\",\r\n  \"status\": \"ЧЕРНОВИК\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получить все заявки User  3 с сортировкой по убыванию даты",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "3333",
+								"username": "3333@mail.ru"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/users/:userId/:sort",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"users",
+								":userId",
+								":sort"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "3"
+								},
+								{
+									"key": "sort",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request operator endpoint",
+			"item": [
+				{
+					"name": "Получение всех запросов в статусе ОТПРАВЛЕНО",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/operator/:sort",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"operator",
+								":sort"
+							],
+							"variable": [
+								{
+									"key": "sort",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение всех запросов одного пользователя оператором",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "5555@mail.ru",
+								"password": "5555"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/operator/users/:userId/:sort",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"operator",
+								"users",
+								":userId",
+								":sort"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "sort",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Принятие заявки 1 Operator 5",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/operator/:operatorId/accept/:requestId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"operator",
+								":operatorId",
+								"accept",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "operatorId",
+									"value": "5"
+								},
+								{
+									"key": "requestId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Отклонение заявки 1 Operator 5",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/operator/:operatorId/reject/:requestId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"operator",
+								":operatorId",
+								"reject",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "operatorId",
+									"value": "5"
+								},
+								{
+									"key": "requestId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request admin endpoint",
+			"item": [
+				{
+					"name": "Получение всех пользователей Admin 4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "4444",
+								"username": "4444@mail.ru"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/admin/:adminId/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"admin",
+								":adminId",
+								"users"
+							],
+							"variable": [
+								{
+									"key": "adminId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск пользователя по имени User 1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "4444",
+								"username": "4444@mail.ru"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/admin/user/:text",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"admin",
+								"user",
+								":text"
+							],
+							"variable": [
+								{
+									"key": "text",
+									"value": "Tatiana"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Поиск пользователя по имени User 6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "4444",
+								"username": "4444@mail.ru"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/admin/user/:text",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"admin",
+								"user",
+								":text"
+							],
+							"variable": [
+								{
+									"key": "text",
+									"value": "TiK"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Назначение прав OPERATOR User 1 Admin 4",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "4444",
+								"username": "4444@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/admin/:adminId/user/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"admin",
+								":adminId",
+								"user",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "adminId",
+									"value": "4"
+								},
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление User 3 Admin 4",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "4444",
+								"username": "4444@mail.ru"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/admin/:adminId/users/:userId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"admin",
+								":adminId",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "adminId",
+									"value": "4"
+								},
+								{
+									"key": "userId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Exception",
+			"item": [
+				{
+					"name": "Создание пользователя без имени",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"1111\",\r\n  \"email\": \"1111@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"USER\"\r\n      }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/registration/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя без пароля",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Tatiana\",\r\n  \"email\": \"11111@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"USER\"\r\n      }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/registration/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя без емаила",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Tatiana\",\r\n  \"password\": \"1111\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"USER\"\r\n      }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/registration/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя с повторным емаилом",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Tatiana\",\r\n  \"password\": \"1111\",\r\n  \"email\": \"1111@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"USER\"\r\n      }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/registration/users"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
