@@ -2,7 +2,6 @@ package ru.mikhailov.claimregistrar.request.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.mikhailov.claimregistrar.request.service.RequestService;
 import ru.mikhailov.claimregistrar.user.model.User;
@@ -12,9 +11,11 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/request/admin")
+@RequestMapping(path = RequestAdminController.URL_ADMIN)
 @Slf4j
 public class RequestAdminController {
+
+    public final static String URL_ADMIN = "/request/admin";
 
     private final RequestService requestService;
     private final UserService userService;

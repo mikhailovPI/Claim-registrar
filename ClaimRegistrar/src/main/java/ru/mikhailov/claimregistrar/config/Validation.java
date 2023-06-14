@@ -13,7 +13,10 @@ public class Validation {
             throw new ValidationException("Введен некорректный e-mail.");
         }
         if (user.getName() == null) {
-            throw new ValidationException("Name не должен быть пустым.");
+            throw new ValidationException("Имя не должен быть пустым.");
+        }
+        if (user.getPassword() == null) {
+            throw new ValidationException("Пароль не должен быть пустым.");
         }
     }
 }

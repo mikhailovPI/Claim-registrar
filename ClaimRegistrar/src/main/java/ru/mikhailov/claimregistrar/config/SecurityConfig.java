@@ -12,6 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.mikhailov.claimregistrar.user.model.UserRole;
 import ru.mikhailov.claimregistrar.user.security.UserDetailsServiceImpl;
 
+import static ru.mikhailov.claimregistrar.request.controller.RequestAdminController.URL_ADMIN;
+import static ru.mikhailov.claimregistrar.request.controller.RequestOperatorController.URL_OPERATOR;
+import static ru.mikhailov.claimregistrar.request.controller.RequestUserController.URL_USER;
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
@@ -29,11 +33,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/request/admin/**").hasAuthority(String.valueOf(UserRole.ADMIN))
-                .antMatchers("/request/operator/**").hasAnyAuthority(
-                        String.valueOf(UserRole.ADMIN),
-                        String.valueOf(UserRole.OPERATOR))
-                .antMatchers("/request/user/**").hasAuthority(String.valueOf(UserRole.USER))
+                .antMatchers(URL_ADMIN + "/**").hasAuthority(String.valueOf(UserRole.ADMIN))
+                .antMatchers(URL_OPERATOR + "/**").hasAnyAuthority(
+                        String.valueOf(UserRole.OPERATOR),
+                        String.valueOf(UserRole.ADMIN))
+                .antMatchers(URL_USER + "/**").hasAuthority(String.valueOf(UserRole.USER))
 
 //                .antMatchers("/request/admin/**").hasRole(String.valueOf(UserRole.ADMIN))
 //                .antMatchers("/request/operator/**").hasAnyRole(
@@ -44,9 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/registration/**").permitAll()
                 .and()
                 .formLogin()
-                .and()
-                .logout()
-                .logoutSuccessUrl("/").permitAll();
+                .disable();
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/").permitAll();
 
 //                .authorizeRequests()
 //                .antMatchers("/registration/**").permitAll()

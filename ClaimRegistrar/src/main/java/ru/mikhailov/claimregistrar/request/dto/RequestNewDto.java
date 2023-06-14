@@ -5,17 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import ru.mikhailov.claimregistrar.request.model.RequestStatus;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RequestDto {
-
-    Long id;
+public class RequestNewDto {
 
     String text;
-
-    RequestStatus status;
 }

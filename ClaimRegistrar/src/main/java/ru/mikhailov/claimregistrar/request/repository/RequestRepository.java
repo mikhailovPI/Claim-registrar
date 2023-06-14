@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface RequestRepository extends JpaRepository<Request, Long> {
 
-    List<Request>
-            findRequestsByUserId(Long userId, PageRequestOverride pageRequest);
+    List<Request> findRequestsByUserId(Long userId, PageRequestOverride pageRequest);
 }

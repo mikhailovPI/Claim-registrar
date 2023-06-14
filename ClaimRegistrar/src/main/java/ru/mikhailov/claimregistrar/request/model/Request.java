@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@FieldDefaults(level =  AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity
 @Table(name = Request.TABLE_REQUESTS, schema = Request.SCHEMA_TABLE)
 public class Request {

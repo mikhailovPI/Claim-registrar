@@ -2,20 +2,20 @@ package ru.mikhailov.claimregistrar.request.mapper;
 
 import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
+import ru.mikhailov.claimregistrar.request.dto.RequestNewDto;
 import ru.mikhailov.claimregistrar.request.model.Request;
+import ru.mikhailov.claimregistrar.request.model.RequestStatus;
 import ru.mikhailov.claimregistrar.user.dto.UserRequestDro;
-
-import java.time.LocalDateTime;
 
 public class RequestMapper {
 
-    public static Request toRequest(RequestDto requestDto) {
+    public static Request toRequest(RequestNewDto requestDto) {
         return new Request(
-                requestDto.getId(),
-                requestDto.getText(),
-                LocalDateTime.now(),
                 null,
-                requestDto.getStatus()
+                requestDto.getText(),
+                null,
+                null,
+                RequestStatus.DRAFT
         );
     }
 

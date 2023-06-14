@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
+import ru.mikhailov.claimregistrar.request.dto.RequestNewDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestUpdateDto;
 import ru.mikhailov.claimregistrar.request.service.RequestService;
 
@@ -12,15 +13,17 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(path = "/request/users")
+@RequestMapping(path = RequestUserController.URL_USER)
 @Slf4j
 public class RequestUserController {
 
+
+    public final static String URL_USER = "/request/users";
     private final RequestService requestService;
 
     //Просмотр заявок пользователя с возможностью сортировки по дате и пагинацией
     @GetMapping(path = "/{userId}/{sort}")
-    public List<RequestAllDto> getRequestsByUser(
+    public List<RequestDto> getRequestsByUser(
             @PathVariable Long userId,
             @PathVariable Integer sort,
             @RequestParam(name = "from", defaultValue = "0") int from,
@@ -31,8 +34,8 @@ public class RequestUserController {
 
     //Создание заявки
     @PostMapping(path = "/{userId}")
-    public RequestDto createRequest(
-            @RequestBody RequestDto request,
+    public RequestAllDto createRequest(
+            @RequestBody RequestNewDto request,
             @PathVariable Long userId) {
         log.info("URL: /request/users/{userId}. PostMapping/Создание заявки/createRequest");
         return requestService.createRequest(request, userId);
@@ -46,16 +49,6 @@ public class RequestUserController {
         log.info("URL: /request/{userId}/request/{requestId}. PatchMapping/Отправка заявки/sendRequest");
         return requestService.sendRequest(userId, requestId);
     }
-
-    //Редактирование заявки (рабочий вариант)
-//    @PatchMapping(path = "/{userId}/request")
-//    public RequestDto updateRequest(
-//            @PathVariable Long userId,
-//            @RequestBody RequestDto requestDto) {
-//        log.info("URL: /request/{userId}/request. PatchMapping/Редактирование заявки/updateRequest");
-//        return requestService.updateRequest(userId, requestDto);
-//    }
-
 
     //Редактирование заявки
     @PatchMapping(path = "update/{userId}/request/{requestId}")
