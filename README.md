@@ -25,6 +25,10 @@ OPERATOR;
 
 ***Схема базы данных:***
 >![schema_database.png](ClaimRegistrar/info/schema_database.PNG)
+>
+***Данные для тестирования в Postman:***
+[tests](https://github.com/mikhailovPI/Claim-registrar/blob/main/ClaimRegistrar/info/tests_claim-Registrar.json)
+
 
 
 
