@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserByName(String text) {
-        return null;
+        return toUserDto(userRepository.findFirstUserByNamePart(text));
     }
 
     @Override

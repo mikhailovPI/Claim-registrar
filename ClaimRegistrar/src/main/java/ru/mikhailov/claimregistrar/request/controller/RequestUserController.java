@@ -17,7 +17,6 @@ import java.util.List;
 @Slf4j
 public class RequestUserController {
 
-
     public final static String URL_USER = "/request/users";
     private final RequestService requestService;
 
