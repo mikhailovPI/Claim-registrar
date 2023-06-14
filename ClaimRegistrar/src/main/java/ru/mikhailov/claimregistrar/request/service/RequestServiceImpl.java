@@ -168,23 +168,21 @@ public class RequestServiceImpl implements RequestService {
 
     //TODO добавить просмотр заявок по имени
     @Override
-    public List<RequestDto> getUserRequest(Long userId, Integer sort, int from, int size) {
+    public List<RequestDto> getUserRequest(String namePart, Integer sort, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
         if (sort.equals(0)) {
             //сортировка по убыванию даты
-            return requestRepository.findAll(pageRequest)
+            return requestRepository.findOrdersByUserNamePart(namePart, pageRequest)
                     .stream()
                     .filter(request -> request.getStatus().equals(RequestStatus.SHIPPED))
-                    .filter(request -> request.getUser().getId().equals(userId))
                     .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
                     .map(RequestMapper::toRequestDto)
                     .collect(Collectors.toList());
         } else if (sort.equals(1)) {
             //сортировка по возрастанию даты
-            return requestRepository.findAll(pageRequest)
+            return requestRepository.findOrdersByUserNamePart(namePart, pageRequest)
                     .stream()
                     .filter(request -> request.getStatus().equals(RequestStatus.SHIPPED))
-                    .filter(request -> request.getUser().getId().equals(userId))
                     .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
                     .map(RequestMapper::toRequestDto)
                     .collect(Collectors.toList());

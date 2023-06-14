@@ -29,16 +29,17 @@ public class RequestOperatorController {
     }
 
     //Получение всех заявок пользователя по его имени с возможностью сортировки по дате и пагинацией
-    @GetMapping(path = "/users/{userId}/{sort}")
+    @GetMapping(path = "/users/{sort}")
     public List<RequestDto> getUserRequest(
-            //@RequestParam(name = "text", required = false) String text
-            @PathVariable Long userId,
+            @RequestParam String namePart,
+//            @PathVariable String text,
+//            @PathVariable Long userId,
             @PathVariable Integer sort,
             @RequestParam(name = "from", defaultValue = "0") int from,
             @RequestParam(name = "size", defaultValue = "5") int size) {
         log.info("URL: /request/operator/user/{userId}. " +
                 "GetMapping/Получение всех заявок пользователя/getUserRequest");
-        return requestService.getUserRequest(userId, sort, from, size);
+        return requestService.getUserRequest(namePart, sort, from, size);
     }
 
     //Принятие заявки

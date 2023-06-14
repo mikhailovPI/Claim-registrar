@@ -23,7 +23,7 @@ public interface RequestService {
     //TODO Методы для оператора
     List<RequestAllDto> getRequests(Integer sort, int from, int size);
 
-    List<RequestDto> getUserRequest(Long userId, Integer sort, int from, int size);
+    List<RequestDto> getUserRequest(String namePart, Integer sort, int from, int size);
 
     RequestAllDto acceptRequest(Long operatorId, Long requestId);
 
