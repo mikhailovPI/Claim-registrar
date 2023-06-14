@@ -21,7 +21,6 @@ public class RequestAdminController {
 
     //Посмотреть список всех пользователей
     @GetMapping(path = "/users")
-    @PreAuthorize("hasAuthority('admin')")
     public List<User> getAllUsers(
             @RequestParam(name = "from", defaultValue = "0") int from,
             @RequestParam(name = "size", defaultValue = "5") int size) {
@@ -31,7 +30,6 @@ public class RequestAdminController {
 
     //Поиск пользователя по имени
     @GetMapping(path = "/user")
-    @PreAuthorize("hasAuthority('admin')")
     public User getUserByName(
             @RequestParam(name = "text", required = false) String text) {
         log.info("URL: /request/admin/user. GetMapping/Поиск пользователя по имени/getUserByName");
@@ -40,7 +38,6 @@ public class RequestAdminController {
 
     //Назначение прав пользователей
     @PatchMapping(path = "/user/{userId}")
-    @PreAuthorize("hasAuthority('admin')")
     public User assignRightsOperator(@PathVariable Long userId) {
         log.info("URL: /request/admin/user. GetMapping/Поиск пользователя по имени/getUserByName");
         return userService.assignRightsOperator(userId);

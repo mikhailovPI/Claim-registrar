@@ -1,7 +1,6 @@
 package ru.mikhailov.claimregistrar.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -18,20 +17,20 @@ import ru.mikhailov.claimregistrar.user.security.UserDetailsServiceImpl;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    public void setUserDetailsService(UserDetailsServiceImpl userDetailsService) {
-        this.userDetailsService = userDetailsService;
-    }
+//    @Autowired
+//    public void setUserDetailsService(UserDetailsServiceImpl userDetailsService) {
+//        this.userDetailsService = userDetailsService;
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/request/admin/**").hasRole(String.valueOf(UserRole.ADMIN))
-                .antMatchers("/request/operator/**").hasAnyRole(
+                .antMatchers("/request/admin/**").hasAuthority(String.valueOf(UserRole.ADMIN))
+                .antMatchers("/request/operator/**").hasAnyAuthority(
                         String.valueOf(UserRole.ADMIN),
                         String.valueOf(UserRole.OPERATOR))
                 .antMatchers("/request/user/**").hasAuthority(String.valueOf(UserRole.USER))
@@ -41,11 +40,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                        String.valueOf(UserRole.ADMIN),
 //                        String.valueOf(UserRole.OPERATOR))
 //                .antMatchers("/request/user/**").hasAuthority(String.valueOf(UserRole.USER))
+                .antMatchers("/login").permitAll()
                 .antMatchers("/registration/**").permitAll()
                 .and()
                 .formLogin()
                 .and()
-                .logout().logoutSuccessUrl("/");
+                .logout()
+                .logoutSuccessUrl("/").permitAll();
 
 //                .authorizeRequests()
 //                .antMatchers("/registration/**").permitAll()
@@ -67,8 +68,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    protected PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12);
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean

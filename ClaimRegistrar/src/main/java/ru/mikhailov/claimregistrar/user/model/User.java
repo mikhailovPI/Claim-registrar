@@ -43,7 +43,7 @@ public class User {
     @Column(name = USERS_EMAIL)
     String email;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinTable(name = TABLE_USERS_ROLES,
             joinColumns = @JoinColumn(name = USERS_ID),
             inverseJoinColumns = @JoinColumn(name = ROLE_ID))

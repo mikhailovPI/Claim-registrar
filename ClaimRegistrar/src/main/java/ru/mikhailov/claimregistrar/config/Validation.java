@@ -16,6 +16,4 @@ public class Validation {
             throw new ValidationException("Name не должен быть пустым.");
         }
     }
-
-
 }

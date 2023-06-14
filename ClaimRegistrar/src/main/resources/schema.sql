@@ -1,4 +1,4 @@
---drop table requests cascade;
+drop table requests cascade;
 --drop table users cascade;
 --drop table roles cascade;
 --drop table users_roles cascade;

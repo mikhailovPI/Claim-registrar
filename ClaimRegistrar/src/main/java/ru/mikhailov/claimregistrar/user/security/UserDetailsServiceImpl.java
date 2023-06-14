@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.mikhailov.claimregistrar.user.repository.UserRepository;
 
+import static ru.mikhailov.claimregistrar.user.security.SecurityUser.toUserDetails;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -17,8 +19,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return SecurityUser.toUserDetails(userRepository.findByEmail(email)
+        return toUserDetails(userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(
-                        String.format("Пользователь с email:  %s существует.", email))));
+                        String.format("Пользователь с email:  %s не существует.", email))));
     }
 }

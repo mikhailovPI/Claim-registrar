@@ -5,7 +5,6 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.mikhailov.claimregistrar.user.dto.UserDto;
 import ru.mikhailov.claimregistrar.user.model.Role;
 import ru.mikhailov.claimregistrar.user.model.User;
 
@@ -63,13 +62,6 @@ public class SecurityUser implements UserDetails {
                 user.getPassword(),
                 mapRolesToAutorities(user.getUserRole()));
     }
-
-//    public static UserDetails toUserDetails(UserDto user) {
-//        return new org.springframework.security.core.userdetails.User(
-//                user.getEmail(),
-//                user.getPassword(),
-//                mapRolesToAutorities(user.getUserRole()));
-//    }
 
     private static Collection<? extends GrantedAuthority> mapRolesToAutorities(Collection<Role> roles) {
         return roles.stream()

@@ -4,6 +4,7 @@ import com.sun.xml.bind.v2.TODO;
 import org.springframework.stereotype.Service;
 import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
+import ru.mikhailov.claimregistrar.request.dto.RequestUpdateDto;
 import ru.mikhailov.claimregistrar.request.model.Request;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public interface RequestService {
 
     RequestDto sendRequest(Long userId, Long requestId);
 
-    //RequestDto updateRequest(Long userId, Long requestId);
-    RequestDto updateRequest(Long userId, RequestDto requestDto);
+    //RequestDto updateRequest(Long userId, RequestDto requestDto);
+    RequestDto updateRequest(Long userId, Long requestId, RequestUpdateDto requestUprateDto);
 
     //TODO Методы для оператора
     List<RequestAllDto> getRequests(Integer sort, int from, int size);

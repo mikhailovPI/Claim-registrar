@@ -8,6 +8,7 @@ import ru.mikhailov.claimregistrar.config.PageRequestOverride;
 import ru.mikhailov.claimregistrar.exception.NotFoundException;
 import ru.mikhailov.claimregistrar.request.dto.RequestAllDto;
 import ru.mikhailov.claimregistrar.request.dto.RequestDto;
+import ru.mikhailov.claimregistrar.request.dto.RequestUpdateDto;
 import ru.mikhailov.claimregistrar.request.mapper.RequestMapper;
 import ru.mikhailov.claimregistrar.request.model.Request;
 import ru.mikhailov.claimregistrar.request.model.RequestStatus;
@@ -15,11 +16,14 @@ import ru.mikhailov.claimregistrar.request.repository.RequestRepository;
 import ru.mikhailov.claimregistrar.user.model.Role;
 import ru.mikhailov.claimregistrar.user.model.User;
 import ru.mikhailov.claimregistrar.user.model.UserRole;
+import ru.mikhailov.claimregistrar.user.repository.RoleRepository;
 import ru.mikhailov.claimregistrar.user.repository.UserRepository;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,6 +34,7 @@ public class RequestServiceImpl implements RequestService {
 
     private final RequestRepository requestRepository;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     //TODO Методы для пользователя
     @Override
@@ -40,14 +45,14 @@ public class RequestServiceImpl implements RequestService {
                     String.format("Данный пользователь %s не может смотреть чужие запросы", userId));
         }
         if (sort.equals(0)) {
-            //сортировка по убыванию даты
+            //сортировка по возрастанию даты
             return requestRepository.findRequestsByUserId(userId, pageRequest)
                     .stream()
                     .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
                     .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
         } else if (sort.equals(1)) {
-            //сортировка по возрастанию даты
+            //сортировка по убыванию даты
             return requestRepository.findRequestsByUserId(userId, pageRequest)
                     .stream()
                     .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
@@ -62,71 +67,59 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     public RequestDto createRequest(RequestDto requestDto, Long userId) {
         User user = validationUser(userId);
-//        if (user.getAdmin() == true ||
-//                user.getOperator() == true) {
-//            throw new NotFoundException(
-//                    String.format("Данный пользователь %s не может создавать запрос," +
-//                            " т.к. является оператором/админом.", userId));
-//        }
-        String name = user.getUserRole()
+        user.getUserRole()
                 .stream()
-                .map(Role::getName)
-                .toString();
-        if (name.equals(UserRole.USER)) {
+                .filter(role -> !role.getName().equals(String.valueOf(UserRole.USER)))
+                .forEach(role -> {
+            throw new NotFoundException(
+                    String.format("Пользователь %s не может создавать заявку, " +
+                            "т.к. является OPERATOR или ADMIN.", user.getName()));
+        });
             Request request = RequestMapper.toRequest(requestDto);
             request.setPublishedOn(LocalDateTime.now());
             request.setUser(user);
             request.setStatus(RequestStatus.ЧЕРНОВИК);
             Request requestSave = requestRepository.save(request);
             return RequestMapper.toRequestDto(requestSave);
-        } else {
-            throw new NotFoundException(
-                    String.format("Данный пользователь %s не может создавать запрос," +
-                            " т.к. является оператором/админом.", userId));
-        }
     }
 
     @Override
     @Transactional
     public RequestDto sendRequest(Long userId, Long requestId) {
         Request request = validationRequest(requestId);
+        User user = validationUser(userId);
         if (!request.getUser().getId().equals(userId)) {
             throw new NotFoundException("Пользователь не может отправить чужую заявку!");
         }
-//        if (validationUser(userId).getAdmin() == true ||
-//                validationUser(userId).getOperator() == true) {
-//            throw new NotFoundException(
-//                    String.format("Данный пользователь %s не может изменять статус запроса на " +
-//                            RequestStatus.ОТПРАВЛЕНО + " т.к. является оператором/админом.", userId));
-//        }
+        user.getUserRole()
+                .stream()
+                .filter(role -> !role.getName().equals(String.valueOf(UserRole.USER)))
+                .forEach(role -> {
+                    throw new NotFoundException(
+                            String.format("Пользователь %s не может отправить заявку," +
+                                    " т.к. является OPERATOR или ADMIN.", user.getName()));
+                });
         if (request.getStatus().equals(RequestStatus.ЧЕРНОВИК)) {
             request.setStatus(RequestStatus.ОТПРАВЛЕНО);
             Request requestUpdate = requestRepository.save(request);
             return RequestMapper.toRequestDto(requestUpdate);
         } else {
-            throw new NotFoundException("Заявка не имеет статус " + RequestStatus.ЧЕРНОВИК);
+            throw new NotFoundException(
+                    String.format("Заявка имеет статус %s, а должна иметь статус 'ЧЕРНОВИК'!", request.getStatus()));
         }
     }
 
     @Override
-    public RequestDto updateRequest(Long userId, RequestDto requestDto) {
-        Request request = validationRequest(requestDto.getId());
+    public RequestDto updateRequest(Long userId, Long requestId, RequestUpdateDto requestUprateDto) {
+        Request request = validationRequest(requestId);
         if (!request.getUser().getId().equals(userId)) {
             throw new NotFoundException("Пользователь не может редактировать чужую заявку!");
         }
         if (!request.getStatus().equals(RequestStatus.ЧЕРНОВИК)) {
-            throw new NotFoundException("Статус заявки не позволяет ее редактировать. Должен быть статус - черновик!");
+            throw new NotFoundException("Статус заявки не позволяет ее редактировать. Должен быть статус - 'ЧЕРНОВИК'!");
         }
-//        if (validationUser(userId).getAdmin() == true ||
-//                validationUser(userId).getOperator() == true) {
-//            throw new NotFoundException(
-//                    String.format("Данный пользователь %s не может обновлять запрос," +
-//                            " т.к. является оператором/админом.", userId));
-//        }
-
-        request.setText(requestDto.getText());
+        request.setText(requestUprateDto.getText());
         Request requestSave = requestRepository.save(request);
-
         return RequestMapper.toRequestDto(requestSave);
     }
 
