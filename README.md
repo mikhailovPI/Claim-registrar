@@ -30,7 +30,7 @@ OPERATOR, удалить пользователя;
   - user и password см. в 
 [application.properties](https://github.com/mikhailovPI/Claim-registrar/blob/main/ClaimRegistrar/src/main/resources/application.properties);
 - Запустить файл 
-[schema.sql](https://github.com/mikhailovPI/ComputersStore/blob/main/ComputersStore/src/main/resources/schema.sql);
+[schema.sql](https://github.com/mikhailovPI/Claim-registrar/blob/main/ClaimRegistrar/src/main/resources/schema.sql);
 - Произвести запуск приложения (class ClaimRegistrarApplication);
 - Запустить Postman на [localhost:8080](http://localhost:8080);
 - Запустить коллекцию 
