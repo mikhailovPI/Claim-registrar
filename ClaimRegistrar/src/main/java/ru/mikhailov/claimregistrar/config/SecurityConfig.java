@@ -7,9 +7,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.mikhailov.claimregistrar.user.model.UserRole;
 import ru.mikhailov.claimregistrar.user.security.UserDetailsServiceImpl;
 
 import static ru.mikhailov.claimregistrar.request.controller.RequestAdminController.URL_ADMIN;
@@ -31,27 +31,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf()
+                .disable()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
-                .antMatchers(URL_ADMIN + "/**").hasAuthority(String.valueOf(UserRole.ADMIN))
-                .antMatchers(URL_OPERATOR + "/**").hasAnyAuthority(
-                        String.valueOf(UserRole.OPERATOR),
-                        String.valueOf(UserRole.ADMIN))
-                .antMatchers(URL_USER + "/**").hasAuthority(String.valueOf(UserRole.USER))
-
-//                .antMatchers("/request/admin/**").hasRole(String.valueOf(UserRole.ADMIN))
-//                .antMatchers("/request/operator/**").hasAnyRole(
-//                        String.valueOf(UserRole.ADMIN),
-//                        String.valueOf(UserRole.OPERATOR))
-//                .antMatchers("/request/user/**").hasAuthority(String.valueOf(UserRole.USER))
+                .antMatchers(URL_ADMIN + "/**").hasRole("ADMIN")
+                .antMatchers(URL_OPERATOR + "/**").hasAnyRole(
+                        "OPERATOR", "ADMIN")
+                .antMatchers(URL_USER + "/**").hasRole("USER")
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration/**").permitAll()
                 .and()
                 .formLogin()
-                .disable();
-//                .and()
-//                .logout()
-//                .logoutSuccessUrl("/").permitAll();
+                .and()
+                .logout()
+                .logoutSuccessUrl("/").permitAll();
 
 //                .authorizeRequests()
 //                .antMatchers("/registration/**").permitAll()
