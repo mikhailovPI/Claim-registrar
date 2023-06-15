@@ -94,8 +94,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUserByName(String text) {
-        return toUserDto(userRepository.findFirstUserByNamePart(text));
+    public UserDto getUserByName(String namePart) {
+        return toUserDto(userRepository.findFirstUserByNamePart(namePart));
     }
 
     @Override

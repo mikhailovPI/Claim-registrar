@@ -276,7 +276,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId/:sort",
+							"raw": "http://localhost:8080/request/users/:userId/:sort?from=0&size=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -288,6 +288,16 @@
 								":userId",
 								":sort"
 							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							],
 							"variable": [
 								{
 									"key": "userId",
@@ -295,7 +305,7 @@
 								},
 								{
 									"key": "sort",
-									"value": "1"
+									"value": null
 								}
 							]
 						}
@@ -327,7 +337,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId/:sort",
+							"raw": "http://localhost:8080/request/users/:userId/:sort?from=0&size=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -338,6 +348,16 @@
 								"users",
 								":userId",
 								":sort"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
 							],
 							"variable": [
 								{
@@ -612,7 +632,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId/:sort",
+							"raw": "http://localhost:8080/request/users/:userId/:sort?from=0&size=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -623,6 +643,16 @@
 								"users",
 								":userId",
 								":sort"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
 							],
 							"variable": [
 								{
@@ -755,7 +785,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId/:sort",
+							"raw": "http://localhost:8080/request/users/:userId/:sort?from=0&size=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -766,6 +796,16 @@
 								"users",
 								":userId",
 								":sort"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
 							],
 							"variable": [
 								{
@@ -811,7 +851,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/operator/:sort",
+							"raw": "http://localhost:8080/request/operator/:sort?from=0&size=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -821,6 +861,16 @@
 								"request",
 								"operator",
 								":sort"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
 							],
 							"variable": [
 								{
@@ -833,7 +883,7 @@
 					"response": []
 				},
 				{
-					"name": "Получение всех запросов одного пользователя оператором",
+					"name": "Получение всех запросов по имени User 1 Operator 5",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -857,7 +907,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/operator/users/:userId/:sort",
+							"raw": "http://localhost:8080/request/operator/users/:sort?namePart=tAtiAnA&from=0&size=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -867,14 +917,84 @@
 								"request",
 								"operator",
 								"users",
-								":userId",
 								":sort"
+							],
+							"query": [
+								{
+									"key": "namePart",
+									"value": "tAtiAnA"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
 							],
 							"variable": [
 								{
-									"key": "userId",
+									"key": "sort",
 									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение всех запросов по части имени User 3 Operator 5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "5555@mail.ru",
+								"password": "5555"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/request/operator/users/:sort?namePart=vel&from=0&size=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"request",
+								"operator",
+								"users",
+								":sort"
+							],
+							"query": [
+								{
+									"key": "namePart",
+									"value": "vel"
 								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							],
+							"variable": [
 								{
 									"key": "sort",
 									"value": "1"
@@ -1012,7 +1132,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/admin/:adminId/users",
+							"raw": "http://localhost:8080/request/admin/:adminId/users?from=0&size=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1023,6 +1143,16 @@
 								"admin",
 								":adminId",
 								"users"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
 							],
 							"variable": [
 								{
@@ -1059,7 +1189,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/admin/user/:text",
+							"raw": "http://localhost:8080/request/admin/user?namePart=Tatiana&from=0&size=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1068,13 +1198,20 @@
 							"path": [
 								"request",
 								"admin",
-								"user",
-								":text"
+								"user"
 							],
-							"variable": [
+							"query": [
 								{
-									"key": "text",
+									"key": "namePart",
 									"value": "Tatiana"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
 								}
 							]
 						}
@@ -1106,7 +1243,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/admin/user/:text",
+							"raw": "http://localhost:8080/request/admin/user/?namePart=iana&from=0&size=5",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1116,12 +1253,20 @@
 								"request",
 								"admin",
 								"user",
-								":text"
+								""
 							],
-							"variable": [
+							"query": [
 								{
-									"key": "text",
-									"value": "TiK"
+									"key": "namePart",
+									"value": "iana"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
 								}
 							]
 						}

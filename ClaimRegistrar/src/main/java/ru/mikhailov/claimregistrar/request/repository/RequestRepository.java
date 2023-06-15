@@ -12,7 +12,7 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
 
     List<Request> findRequestsByUserId(Long userId, PageRequestOverride pageRequest);
 
-    @Query("SELECT r FROM Request r WHERE r.user.name LIKE CONCAT('%', LOWER(:namePart), '%')")
+    @Query("SELECT r FROM Request r WHERE LOWER(r.user.name) LIKE CONCAT('%', LOWER(:namePart), '%')")
     List<Request> findOrdersByUserNamePart(@Param("namePart") String namePart, PageRequestOverride pageRequest);
 
     void deleteRequestsByUserId(Long userId);

@@ -14,7 +14,7 @@ public interface UserService {
 
     List<UserDto> getAllUsers(Long adminId, int from, int size);
 
-    UserDto getUserByName(String text);
+    UserDto getUserByName(String namePart);
 
     UserDto assignRightsOperator(Long adminId, Long userId);
 }

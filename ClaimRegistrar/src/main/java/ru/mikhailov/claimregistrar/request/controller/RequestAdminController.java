@@ -29,11 +29,11 @@ public class RequestAdminController {
     }
 
     //Поиск пользователя по имени
-    @GetMapping(path = "/user/{text}")
+    @GetMapping(path = "/user")
     public UserDto getUserByName(
-            @PathVariable String text) {
+            @RequestParam(name = "namePart", required = false) String namePart) {
         log.info("URL: /request/admin/user. GetMapping/Поиск пользователя по имени/getUserByName");
-        return userService.getUserByName(text);
+        return userService.getUserByName(namePart);
     }
 
     //Назначение прав оператора

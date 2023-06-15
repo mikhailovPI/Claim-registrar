@@ -32,8 +32,6 @@ public class RequestOperatorController {
     @GetMapping(path = "/users/{sort}")
     public List<RequestDto> getUserRequest(
             @RequestParam String namePart,
-//            @PathVariable String text,
-//            @PathVariable Long userId,
             @PathVariable Integer sort,
             @RequestParam(name = "from", defaultValue = "0") int from,
             @RequestParam(name = "size", defaultValue = "5") int size) {
