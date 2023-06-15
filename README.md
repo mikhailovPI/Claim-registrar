@@ -22,6 +22,19 @@ OPERATOR, удалить пользователя;
 
 **Используемый стек: Java 11, Spring Boot, Spring Data JPA, Spring Security, Hibernate, Maven, PostgreSQL**
 
+<u>***Для запуска приложения необходимо:***</u>
+- Склонировать репозиторий на ПК в необходимую папку;
+- Создать БД со следующими свойствами:
+  - HOST: localhost;
+  - PORT: 5432;
+  - user и password см. в 
+[application.properties](https://github.com/mikhailovPI/Claim-registrar/blob/main/ClaimRegistrar/src/main/resources/application.properties);
+- Запустить файл 
+[schema.sql](https://github.com/mikhailovPI/ComputersStore/blob/main/ComputersStore/src/main/resources/schema.sql);
+- Произвести запуск приложения (class ClaimRegistrarApplication);
+- Запустить Postman на [localhost:8080](http://localhost:8080);
+- Запустить коллекцию 
+[тестов](https://github.com/mikhailovPI/Claim-registrar/blob/main/ClaimRegistrar/info/ClaimRegistrar.postman_collection.json) в Postman;
 
 ***Схема базы данных:***
 >![schema_database.png](ClaimRegistrar/info/schema_database.PNG)
