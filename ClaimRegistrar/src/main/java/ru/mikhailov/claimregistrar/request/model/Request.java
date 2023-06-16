@@ -48,5 +48,4 @@ public class Request {
     @Enumerated(EnumType.STRING)
     @Column(name = REQUEST_STATUS)
     RequestStatus status;
-
 }

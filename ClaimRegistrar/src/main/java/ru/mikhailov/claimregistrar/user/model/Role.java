@@ -28,5 +28,4 @@ public class Role {
 
     @Column(name = ROLE_NAME)
     String name;
-
 }

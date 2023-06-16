@@ -146,6 +146,5 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new NotFoundException(
                         String.format("Пользователь %s не существует!", userId)));
     }
-
 }
 

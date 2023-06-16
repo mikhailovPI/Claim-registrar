@@ -2,6 +2,7 @@ package ru.mikhailov.claimregistrar.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,6 +17,7 @@ import static ru.mikhailov.claimregistrar.request.controller.RequestAdminControl
 import static ru.mikhailov.claimregistrar.request.controller.RequestOperatorController.URL_OPERATOR;
 import static ru.mikhailov.claimregistrar.request.controller.RequestUserController.URL_USER;
 
+@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
@@ -23,24 +25,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsServiceImpl userDetailsService;
 
-//    @Autowired
-//    public void setUserDetailsService(UserDetailsServiceImpl userDetailsService) {
-//        this.userDetailsService = userDetailsService;
-//    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
-                .antMatchers(URL_ADMIN + "/**").hasRole("ADMIN")
-                .antMatchers(URL_OPERATOR + "/**").hasAnyRole(
+                .antMatchers(URL_ADMIN + "/**").hasAuthority("ADMIN")
+                .antMatchers(URL_OPERATOR + "/**").hasAnyAuthority(
                         "OPERATOR", "ADMIN")
-                .antMatchers(URL_USER + "/**").hasRole("USER")
+                .antMatchers(URL_USER + "/**").hasAuthority("USER")
                 .antMatchers("/login").permitAll()
                 .antMatchers("/registration/**").permitAll()
                 .and()
@@ -48,24 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessUrl("/").permitAll();
-
-//                .authorizeRequests()
-//                .antMatchers("/registration/**").permitAll()
-//                .antMatchers("/request/admin/**").hasAuthority(Permission.PERMISSION_ADMIN.getPermission())
-//                .antMatchers("/request/operator/**").hasAnyAuthority(
-//                        Permission.PERMISSION_OPERATOR.getPermission(),
-//                        Permission.PERMISSION_ADMIN.getPermission())
-//                .antMatchers("/request/user/**").hasAuthority(Permission.PERMISSION_USER.getPermission())
-
-//                .antMatchers("/request/admin/**").hasRole(String.valueOf(UserRole.ADMIN))
-//                .antMatchers("/request/operator/**").hasAnyRole(
-//                        String.valueOf(UserRole.OPERATOR),
-//                        String.valueOf(UserRole.ADMIN))
-//                .antMatchers("/request/user/**").hasRole(String.valueOf(UserRole.USER))
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .formLogin();
     }
 
     @Bean

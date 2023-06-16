@@ -47,7 +47,7 @@ public class RequestAdminController {
     }
 
     //Удаление пользователя по id
-    @DeleteMapping(path = "/{adminId}/users/{userId}")
+    @DeleteMapping(path = "/{adminId}/user/{userId}")
     public void deleteUserById(
             @PathVariable Long adminId,
             @PathVariable Long userId) {

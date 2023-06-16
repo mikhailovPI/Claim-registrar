@@ -15,7 +15,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping(path = "/registration/users")
+    @PostMapping(path = "/registration/user")
     public UserDto createUser(@RequestBody UserDto userDto) {
         log.info("URL: /users. PostMapping/Создание пользователя/createUser");
         return userService.createUser(userDto);

@@ -1,8 +1,6 @@
 package ru.mikhailov.claimregistrar.user.service;
 
-import org.springframework.web.bind.annotation.PathVariable;
 import ru.mikhailov.claimregistrar.user.dto.UserDto;
-import ru.mikhailov.claimregistrar.user.model.User;
 
 import java.util.List;
 
