@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -28,6 +29,7 @@ public class User {
     public static final String USERS_ADMIN = "user_admin";
     public static final String USERS_OPERATOR = "user_operator";
     private static final String ROLE_ID = "role_id";
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

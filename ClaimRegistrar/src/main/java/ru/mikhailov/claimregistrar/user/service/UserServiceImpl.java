@@ -17,6 +17,7 @@ import ru.mikhailov.claimregistrar.user.model.UserRole;
 import ru.mikhailov.claimregistrar.user.repository.RoleRepository;
 import ru.mikhailov.claimregistrar.user.repository.UserRepository;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -82,9 +83,13 @@ public class UserServiceImpl implements UserService {
                 .filter(role -> !role.getName().equals(String.valueOf(UserRole.ADMIN)))
                 .forEach(role -> {
                     throw new NotFoundException(
-                            String.format("Пользователь %s не может просматривать всех пользователей, " +
+                            String.format("Пользователь %s (роль - %s) не может просматривать всех пользователей, " +
                                             "т.к. не является %s!",
                                     admin.getName(),
+                                    admin.getUserRole()
+                                            .stream()
+                                            .map(Role::getName)
+                                            .collect(Collectors.toSet()),
                                     UserRole.ADMIN));
                 });
         return userRepository.findAll(pageRequest)
@@ -108,15 +113,27 @@ public class UserServiceImpl implements UserService {
                 .filter(role -> !role.getName().equals(String.valueOf(UserRole.ADMIN)))
                 .forEach(role -> {
                     throw new NotFoundException(
-                            String.format("Пользователь %s не может назначить новую роль пользователю, " +
+                            String.format("Пользователь %s (роль - %s) не может назначить новую роль пользователю, " +
                                             "т.к. не является %s!",
                                     admin.getName(),
+                                    admin.getUserRole()
+                                            .stream()
+                                            .map(Role::getName)
+                                            .collect(Collectors.toSet()),
                                     UserRole.ADMIN));
                 });
-        user.getUserRole()
+        Set<Role> roleSet = new HashSet<>(Collections.singleton(roleRepository.findByName(String.valueOf(UserRole.OPERATOR))));
+        if (user.getUserRole()
                 .stream()
-                .filter(role -> role.getName().equals(String.valueOf(UserRole.USER)))
-                .forEach(role -> role.setName(String.valueOf(UserRole.OPERATOR)));
+                .anyMatch(role -> role.getName().equals(String.valueOf(UserRole.USER)))) {
+            user.setUserRole(roleSet);
+        } else {
+            throw new NotFoundException(
+                    String.format("Пользователю %s нельзя назначить роль %s, т.к. он не является %s",
+                            user.getName(),
+                            UserRole.OPERATOR,
+                            UserRole.USER));
+        }
         userRepository.save(user);
         return toUserDto(user);
     }
@@ -131,9 +148,13 @@ public class UserServiceImpl implements UserService {
                 .filter(role -> !role.getName().equals(String.valueOf(UserRole.ADMIN)))
                 .forEach(role -> {
                     throw new NotFoundException(
-                            String.format("Пользователь %s не может удалить пользователя, " +
+                            String.format("Пользователь %s (роль - %s) не может удалить пользователя, " +
                                             "т.к. не является %s!",
                                     admin.getName(),
+                                    admin.getUserRole()
+                                            .stream()
+                                            .map(Role::getName)
+                                            .collect(Collectors.toSet()),
                                     UserRole.ADMIN));
                 });
         requestRepository.deleteRequestsByUserId(userId);

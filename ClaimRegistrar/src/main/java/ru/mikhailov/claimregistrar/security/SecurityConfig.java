@@ -1,4 +1,4 @@
-package ru.mikhailov.claimregistrar.config;
+package ru.mikhailov.claimregistrar.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -11,7 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.mikhailov.claimregistrar.user.security.UserDetailsServiceImpl;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import ru.mikhailov.claimregistrar.security.UserDetailsServiceImpl;
 
 import static ru.mikhailov.claimregistrar.request.controller.RequestAdminController.URL_ADMIN;
 import static ru.mikhailov.claimregistrar.request.controller.RequestOperatorController.URL_OPERATOR;
@@ -28,23 +29,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf()
-                .disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(URL_ADMIN + "/**").hasAuthority("ADMIN")
-                .antMatchers(URL_OPERATOR + "/**").hasAnyAuthority(
-                        "OPERATOR", "ADMIN")
-                .antMatchers(URL_USER + "/**").hasAuthority("USER")
-                .antMatchers("/login").permitAll()
-                .antMatchers("/registration/**").permitAll()
+                .antMatchers(URL_ADMIN + "/**")
+                //.hasAuthority("ADMIN")
+                .permitAll()
+                .antMatchers(URL_OPERATOR + "/**")
+//                .hasAnyAuthority(
+//        "OPERATOR", "ADMIN")
+                .permitAll()
+                .antMatchers(URL_USER + "/**")
+                //.hasAuthority("USER")
+                .permitAll()
+                .antMatchers("/registration/user").permitAll()
                 .and()
                 .formLogin()
+                .loginPage("/login").permitAll()
+//                .defaultSuccessUrl("/home") //добавить эндпоинт home и выдать информацию о пользователе или приложении
                 .and()
                 .logout()
-                .logoutSuccessUrl("/").permitAll();
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+//                .logoutSuccessUrl("/login?succLogout=true")
+//                .permitAll();
+                .logoutSuccessUrl("/");
     }
 
     @Bean

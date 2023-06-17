@@ -14,6 +14,7 @@ import ru.mikhailov.claimregistrar.request.mapper.RequestMapper;
 import ru.mikhailov.claimregistrar.request.model.Request;
 import ru.mikhailov.claimregistrar.request.model.RequestStatus;
 import ru.mikhailov.claimregistrar.request.repository.RequestRepository;
+import ru.mikhailov.claimregistrar.user.model.Role;
 import ru.mikhailov.claimregistrar.user.model.User;
 import ru.mikhailov.claimregistrar.user.model.UserRole;
 import ru.mikhailov.claimregistrar.user.repository.UserRepository;
@@ -70,8 +71,12 @@ public class RequestServiceImpl implements RequestService {
                 .filter(role -> !role.getName().equals(String.valueOf(UserRole.USER)))
                 .forEach(role -> {
                     throw new NotFoundException(
-                            String.format("Пользователь %s не может создавать заявку, т.к. не является %s!",
+                            String.format("Пользователь %s (роль - %s) не может создавать заявку, т.к. не является %s!",
                                     user.getName(),
+                                    user.getUserRole()
+                                            .stream()
+                                            .map(Role::getName)
+                                            .collect(Collectors.toSet()),
                                     UserRole.USER));
                 });
         Request request = RequestMapper.toRequest(requestDto);
@@ -95,9 +100,13 @@ public class RequestServiceImpl implements RequestService {
                 .filter(role -> !role.getName().equals(String.valueOf(UserRole.USER)))
                 .forEach(role -> {
                     throw new NotFoundException(
-                            String.format("Пользователь %s не может отправить заявку," +
+                            String.format("Пользователь %s (роль - %s) не может отправить заявку," +
                                             " т.к. не является %s!",
                                     user.getName(),
+                                    user.getUserRole()
+                                            .stream()
+                                            .map(Role::getName)
+                                            .collect(Collectors.toSet()),
                                     UserRole.USER));
                 });
         if (request.getStatus().equals(RequestStatus.DRAFT)) {
@@ -121,9 +130,13 @@ public class RequestServiceImpl implements RequestService {
                 .filter(role -> !role.getName().equals(String.valueOf(UserRole.USER)))
                 .forEach(role -> {
                     throw new NotFoundException(
-                            String.format("Пользователь %s не может редактировать заявку, " +
+                            String.format("Пользователь %s (роль - %s) не может редактировать заявку, " +
                                             "т.к. не является %s!",
                                     user.getName(),
+                                    user.getUserRole()
+                                            .stream()
+                                            .map(Role::getName)
+                                            .collect(Collectors.toSet()),
                                     UserRole.USER));
                 });
         if (!request.getUser().getId().equals(userId)) {
@@ -202,9 +215,13 @@ public class RequestServiceImpl implements RequestService {
                 .filter(role -> !role.getName().equals(String.valueOf(UserRole.OPERATOR)))
                 .forEach(role -> {
                     throw new NotFoundException(
-                            String.format("Пользователь %s не может принимать заявку, " +
+                            String.format("Пользователь %s (роль - %s) не может принимать заявку, " +
                                             "т.к. не является %s!",
                                     user.getName(),
+                                    user.getUserRole()
+                                            .stream()
+                                            .map(Role::getName)
+                                            .collect(Collectors.toSet()),
                                     UserRole.OPERATOR));
                 });
         if (request.getStatus().equals(RequestStatus.SHIPPED)) {
@@ -227,9 +244,13 @@ public class RequestServiceImpl implements RequestService {
                 .filter(role -> !role.getName().equals(String.valueOf(UserRole.OPERATOR)))
                 .forEach(role -> {
                     throw new NotFoundException(
-                            String.format("Пользователь %s не может отклонять заявку, " +
+                            String.format("Пользователь %s (роль - %s)не может отклонять заявку, " +
                                             "т.к. не является %s!",
                                     user.getName(),
+                                    user.getUserRole()
+                                            .stream()
+                                            .map(Role::getName)
+                                            .collect(Collectors.toSet()),
                                     UserRole.OPERATOR));
                 });
         if (request.getStatus().equals(RequestStatus.SHIPPED) ||
@@ -245,7 +266,6 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
-    //TODO методы валидации
     private User validationUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(

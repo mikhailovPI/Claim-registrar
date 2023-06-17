@@ -1,4 +1,4 @@
-package ru.mikhailov.claimregistrar.user.security;
+package ru.mikhailov.claimregistrar.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
-public class SecurityUser implements UserDetails {
+public class UserDetailsImp implements UserDetails {
 
     private final String username;
     private final String password;

@@ -1,4 +1,4 @@
-package ru.mikhailov.claimregistrar.user.security;
+package ru.mikhailov.claimregistrar.security;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.mikhailov.claimregistrar.user.repository.UserRepository;
 
-import static ru.mikhailov.claimregistrar.user.security.SecurityUser.toUserDetails;
+import static ru.mikhailov.claimregistrar.security.UserDetailsImp.toUserDetails;
 
 @Service
 @Slf4j
