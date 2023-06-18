@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
         return toUserDto(user);
     }
 
-    //TODO методы для админа
+    //Методы для админа
     @Override
     public List<UserDto> getAllUsers(Long adminId, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
@@ -122,7 +122,10 @@ public class UserServiceImpl implements UserService {
                                             .collect(Collectors.toSet()),
                                     UserRole.ADMIN));
                 });
-        Set<Role> roleSet = new HashSet<>(Collections.singleton(roleRepository.findByName(String.valueOf(UserRole.OPERATOR))));
+        Set<Role> roleSet = new HashSet<>(
+                Collections.singleton(
+                        roleRepository.findByName(
+                                String.valueOf(UserRole.OPERATOR))));
         if (user.getUserRole()
                 .stream()
                 .anyMatch(role -> role.getName().equals(String.valueOf(UserRole.USER)))) {
@@ -159,7 +162,6 @@ public class UserServiceImpl implements UserService {
                 });
         requestRepository.deleteRequestsByUserId(userId);
         userRepository.deleteById(userId);
-
     }
 
     private User validationUser(Long userId) {

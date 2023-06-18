@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public interface RequestService {
 
-    //TODO Методы для пользователя
+    //Методы для пользователя
     List<RequestDto> getRequestsByUser(Long userId, Integer sort, int from, int size);
 
     RequestAllDto createRequest(RequestNewDto request, Long userId);
@@ -20,12 +20,18 @@ public interface RequestService {
 
     RequestDto updateRequest(Long userId, Long requestId, RequestUpdateDto requestUprateDto);
 
-    //TODO Методы для оператора
+    //Методы для оператора
     List<RequestAllDto> getRequests(Integer sort, int from, int size);
 
     List<RequestDto> getUserRequest(String namePart, Integer sort, int from, int size);
 
+    List<RequestAllDto> getAcceptRequest(Integer sort, int from, int size);
+
+    List<RequestAllDto> getRejectRequest(Integer sort, int from, int size);
+
     RequestAllDto acceptRequest(Long operatorId, Long requestId);
 
     RequestAllDto rejectRequest(Long operatorId, Long requestId);
+
+
 }

@@ -8,11 +8,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import ru.mikhailov.claimregistrar.security.UserDetailsServiceImpl;
 
 import static ru.mikhailov.claimregistrar.request.controller.RequestAdminController.URL_ADMIN;
 import static ru.mikhailov.claimregistrar.request.controller.RequestOperatorController.URL_OPERATOR;
@@ -29,32 +27,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf()
+                    .disable()
                 .authorizeRequests()
-                .antMatchers(URL_ADMIN + "/**")
-                //.hasAuthority("ADMIN")
-                .permitAll()
-                .antMatchers(URL_OPERATOR + "/**")
-//                .hasAnyAuthority(
-//        "OPERATOR", "ADMIN")
-                .permitAll()
-                .antMatchers(URL_USER + "/**")
-                //.hasAuthority("USER")
-                .permitAll()
-                .antMatchers("/registration/user").permitAll()
+                    .antMatchers(URL_ADMIN + "/**")
+                        .hasAuthority("ADMIN")
+                    .antMatchers(URL_OPERATOR + "/**")
+                        .hasAnyAuthority("OPERATOR", "ADMIN")
+                    .antMatchers(URL_USER + "/**")
+                        .hasAuthority("USER")
+                    .antMatchers("/registration/user").permitAll()
                 .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-//                .defaultSuccessUrl("/home") //добавить эндпоинт home и выдать информацию о пользователе или приложении
+                    .formLogin()
+                        .loginPage("/auth/login").permitAll()
                 .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
-                .deleteCookies("JSESSIONID")
-                .invalidateHttpSession(true)
-                .clearAuthentication(true)
-//                .logoutSuccessUrl("/login?succLogout=true")
-//                .permitAll();
-                .logoutSuccessUrl("/");
+                    .logout()
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
+                        .deleteCookies("JSESSIONID")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true);
     }
 
     @Bean

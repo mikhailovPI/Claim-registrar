@@ -33,7 +33,7 @@ public class RequestServiceImpl implements RequestService {
     private final RequestRepository requestRepository;
     private final UserRepository userRepository;
 
-    //TODO Методы для пользователя
+    //Методы для пользователя
     @Override
     public List<RequestDto> getRequestsByUser(Long userId, Integer sort, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
@@ -57,8 +57,7 @@ public class RequestServiceImpl implements RequestService {
                     .map(RequestMapper::toRequestDto)
                     .collect(Collectors.toList());
         } else {
-            throw new NotFoundException(
-                    String.format("Сортировка возможна только по возрастанию или убыванию!"));
+            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию!");
         }
     }
 
@@ -153,7 +152,7 @@ public class RequestServiceImpl implements RequestService {
         return RequestMapper.toRequestDto(requestSave);
     }
 
-    //TODO Методы для оператора
+    //Методы для оператора
     @Override
     public List<RequestAllDto> getRequests(Integer sort, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
@@ -174,12 +173,10 @@ public class RequestServiceImpl implements RequestService {
                     .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
         } else {
-            throw new NotFoundException(
-                    String.format("Сортировка возможна только по возрастанию или убыванию!"));
+            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию!");
         }
     }
 
-    //TODO добавить просмотр заявок по имени
     @Override
     public List<RequestDto> getUserRequest(String namePart, Integer sort, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
@@ -201,7 +198,55 @@ public class RequestServiceImpl implements RequestService {
                     .collect(Collectors.toList());
         } else {
             throw new NotFoundException(
-                    String.format("Сортировка возможна только по возрастанию или убыванию!"));
+                    "Сортировка возможна только по возрастанию или убыванию!");
+        }
+    }
+
+    @Override
+    public List<RequestAllDto> getAcceptRequest(Integer sort, int from, int size) {
+        PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
+        if (sort.equals(0)) {
+            //сортировка по убыванию даты
+            return requestRepository.findAll(pageRequest)
+                    .stream()
+                    .filter(request -> request.getStatus().equals(RequestStatus.ACCEPTED))
+                    .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
+                    .map(RequestMapper::toRequestAllDto)
+                    .collect(Collectors.toList());
+        } else if (sort.equals(1)) {
+            //сортировка по возрастанию даты
+            return requestRepository.findAll(pageRequest)
+                    .stream()
+                    .filter(request -> request.getStatus().equals(RequestStatus.ACCEPTED))
+                    .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
+                    .map(RequestMapper::toRequestAllDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию!");
+        }
+    }
+
+    @Override
+    public List<RequestAllDto> getRejectRequest(Integer sort, int from, int size) {
+        PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
+        if (sort.equals(0)) {
+            //сортировка по убыванию даты
+            return requestRepository.findAll(pageRequest)
+                    .stream()
+                    .filter(request -> request.getStatus().equals(RequestStatus.REJECTED))
+                    .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
+                    .map(RequestMapper::toRequestAllDto)
+                    .collect(Collectors.toList());
+        } else if (sort.equals(1)) {
+            //сортировка по возрастанию даты
+            return requestRepository.findAll(pageRequest)
+                    .stream()
+                    .filter(request -> request.getStatus().equals(RequestStatus.REJECTED))
+                    .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
+                    .map(RequestMapper::toRequestAllDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию!");
         }
     }
 

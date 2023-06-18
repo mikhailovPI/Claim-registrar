@@ -60,10 +60,10 @@ public class UserDetailsImp implements UserDetails {
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
                 user.getPassword(),
-                mapRolesToAutorities(user.getUserRole()));
+                mapRolesToAuthorities(user.getUserRole()));
     }
 
-    private static Collection<? extends GrantedAuthority> mapRolesToAutorities(Collection<Role> roles) {
+    private static Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream()
                 .map(r -> new SimpleGrantedAuthority(r.getName()))
                 .collect(Collectors.toList());

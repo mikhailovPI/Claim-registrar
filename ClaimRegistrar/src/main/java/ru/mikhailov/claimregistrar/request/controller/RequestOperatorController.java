@@ -35,9 +35,31 @@ public class RequestOperatorController {
             @PathVariable Integer sort,
             @RequestParam(name = "from", defaultValue = "0") int from,
             @RequestParam(name = "size", defaultValue = "5") int size) {
-        log.info("URL: /request/operator/user/{userId}. " +
+        log.info("URL: /request/operator/users/{userId}. " +
                 "GetMapping/Получение всех заявок пользователя/getUserRequest");
         return requestService.getUserRequest(namePart, sort, from, size);
+    }
+
+    //Получение всех принятых заявок с возможностью сортировки по дате и пагинацией
+    @GetMapping(path = "/accept/users/{sort}")
+    public List<RequestAllDto> getAcceptRequest(
+            @PathVariable Integer sort,
+            @RequestParam(name = "from", defaultValue = "0") int from,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        log.info("URL: /request/operator/accept/users/{userId}. " +
+                "GetMapping/Получение всех принятых заявок/getAcceptRequest");
+        return requestService.getAcceptRequest(sort, from, size);
+    }
+
+    //Получение всех отклоненных заявок с возможностью сортировки по дате и пагинацией
+    @GetMapping(path = "/reject/users/{sort}")
+    public List<RequestAllDto> getRejectRequest(
+            @PathVariable Integer sort,
+            @RequestParam(name = "from", defaultValue = "0") int from,
+            @RequestParam(name = "size", defaultValue = "5") int size) {
+        log.info("URL: /request/operator/reject/users/{userId}. " +
+                "GetMapping/Получение всех отклоненных заявок/getRejectRequest");
+        return requestService.getRejectRequest(sort, from, size);
     }
 
     //Принятие заявки
@@ -45,7 +67,7 @@ public class RequestOperatorController {
     public RequestAllDto acceptRequest(
             @PathVariable Long operatorId,
             @PathVariable Long requestId) {
-        log.info("URL: /request/operator//{operatorId}/accept/{requestId}. " +
+        log.info("URL: /request/operator/{operatorId}/accept/{requestId}. " +
                 "PatchMapping/Принятие заявки/acceptRequest");
         return requestService.acceptRequest(operatorId, requestId);
     }
