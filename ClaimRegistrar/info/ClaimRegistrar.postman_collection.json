@@ -12,6 +12,20 @@
 			"item": [
 				{
 					"name": "Создание пользователя 1 (user)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -31,12 +45,26 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/registration/users"
+						"url": "{{user_url_create}}"
 					},
 					"response": []
 				},
 				{
 					"name": "Создание пользователя 2 (operator, admin)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -56,12 +84,26 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/registration/users"
+						"url": "{{user_url_create}}"
 					},
 					"response": []
 				},
 				{
 					"name": "Создание пользователя 3 (user)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -81,12 +123,26 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/registration/users"
+						"url": "{{user_url_create}}"
 					},
 					"response": []
 				},
 				{
 					"name": "Создание пользователя 4 (admin)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -106,12 +162,26 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/registration/users"
+						"url": "{{user_url_create}}"
 					},
 					"response": []
 				},
 				{
 					"name": "Создание пользователя 5 (operator)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -131,12 +201,26 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/registration/users"
+						"url": "{{user_url_create}}"
 					},
 					"response": []
 				},
 				{
 					"name": "Создание пользователя 6 (user)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -156,7 +240,163 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/registration/users"
+						"url": "{{user_url_create}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя 7 (user)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Andy\",\r\n  \"password\": \"7777\",\r\n  \"email\": \"7777@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"USER\"\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{user_url_create}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя 8 (user)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Elton\",\r\n  \"password\": \"8888\",\r\n  \"email\": \"8888@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"USER\"\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{user_url_create}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя 9 (user)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Sergio\",\r\n  \"password\": \"9999\",\r\n  \"email\": \"9999@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"USER\"\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{user_url_create}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Создание пользователя 10 (user)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "dsds",
+								"username": "dsds"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Kant\",\r\n  \"password\": \"1010\",\r\n  \"email\": \"1010@mail.ru\",\r\n  \"userRole\": [\r\n      {\r\n          \"name\": \"USER\"\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{user_url_create}}"
 					},
 					"response": []
 				}
@@ -167,6 +407,20 @@
 			"item": [
 				{
 					"name": "Создание запроса 1 от user 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -176,7 +430,18 @@
 							}
 						},
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"text\": \"Запрос от пользователя 1 и он очень важен!\"\r\n}",
@@ -187,15 +452,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId"
 							],
 							"variable": [
@@ -210,6 +471,20 @@
 				},
 				{
 					"name": "Создание запроса 2 от user 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -230,15 +505,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId"
 							],
 							"variable": [
@@ -253,6 +524,20 @@
 				},
 				{
 					"name": "Получить все заявки User 1 с сортировкой по возрастанию даты",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -276,15 +561,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId/:sort?from=0&size=5",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId/:sort?from=0&size=5",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId",
 								":sort"
 							],
@@ -305,7 +586,7 @@
 								},
 								{
 									"key": "sort",
-									"value": null
+									"value": "1"
 								}
 							]
 						}
@@ -314,6 +595,20 @@
 				},
 				{
 					"name": "Получить все заявки User 1 с сортировкой по убыванию даты",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -337,15 +632,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId/:sort?from=0&size=5",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId/:sort?from=0&size=5",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId",
 								":sort"
 							],
@@ -375,6 +666,20 @@
 				},
 				{
 					"name": "Изменение статуса запроса 1 от User 1 на ОТПРАВЛЕНО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -395,15 +700,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId/request/:requestId",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId/request/:requestId",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId",
 								"request",
 								":requestId"
@@ -424,6 +725,20 @@
 				},
 				{
 					"name": "Обновление запроса 2 от User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -444,15 +759,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/update/:userId/request/:requestId",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/update/:userId/request/:requestId",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								"update",
 								":userId",
 								"request",
@@ -474,6 +785,20 @@
 				},
 				{
 					"name": "Изменение статуса запроса 2 от User 1 на ОТПРАВЛЕНО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -494,15 +819,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId/request/:requestId",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId/request/:requestId",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId",
 								"request",
 								":requestId"
@@ -523,6 +844,20 @@
 				},
 				{
 					"name": "Создание запроса 3 от user 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -543,15 +878,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId"
 							],
 							"variable": [
@@ -566,6 +897,20 @@
 				},
 				{
 					"name": "Создание запроса 4 от user 6",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -586,15 +931,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId"
 							],
 							"variable": [
@@ -609,6 +950,20 @@
 				},
 				{
 					"name": "Получить все заявки User 1 с сортировкой по возрастанию даты со статусом ОТПРАВЛЕНО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -632,15 +987,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId/:sort?from=0&size=5",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId/:sort?from=0&size=5",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId",
 								":sort"
 							],
@@ -670,6 +1021,20 @@
 				},
 				{
 					"name": "Изменение статуса запроса 3 от User 3 на ОТПРАВЛЕНО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -690,15 +1055,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId/request/:requestId",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId/request/:requestId",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId",
 								"request",
 								":requestId"
@@ -719,6 +1080,20 @@
 				},
 				{
 					"name": "Создание запроса 5 от user 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -739,15 +1114,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId"
 							],
 							"variable": [
@@ -761,7 +1132,469 @@
 					"response": []
 				},
 				{
+					"name": "Создание запроса  6 от user 8",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "8888",
+								"username": "8888@mail.ru"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Запрос от пользователя 8 и очень классный!\",\r\n  \"status\": \"ЧЕРНОВИК\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/:userId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение статуса запроса 6 от User 8 на ОТПРАВЛЕНО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "8888",
+								"username": "8888@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/:userId/request/:requestId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								":userId",
+								"request",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "8"
+								},
+								{
+									"key": "requestId",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание запроса 7 от user 8",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "8888",
+								"username": "8888@mail.ru"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Второй запрос от пользователя 8 и он очень классный!\",\r\n  \"status\": \"ЧЕРНОВИК\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/:userId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение статуса запроса 7 от User 8 на ОТПРАВЛЕНО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "8888",
+								"username": "8888@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/:userId/request/:requestId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								":userId",
+								"request",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "8"
+								},
+								{
+									"key": "requestId",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание запроса 8 от user 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1111",
+								"username": "1111@mail.ru"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Третий запрос от пользователя 1 и он очень классный!\",\r\n  \"status\": \"ЧЕРНОВИК\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/:userId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение статуса запроса 8 от User 1 на ОТПРАВЛЕНО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1010",
+								"username": "1010@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/:userId/request/:requestId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								":userId",
+								"request",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "requestId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание запроса 9 от user 10",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1010",
+								"username": "1010@mail.ru"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Запрос от пользователя 10 и он очень классный!\",\r\n  \"status\": \"ЧЕРНОВИК\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/:userId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Изменение статуса запроса 9 от User 10 на ОТПРАВЛЕНО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1010",
+								"username": "1010@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/:userId/request/:requestId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								":userId",
+								"request",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "10"
+								},
+								{
+									"key": "requestId",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Получить все заявки User  3 с сортировкой по убыванию даты",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -785,15 +1618,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/users/:userId/:sort?from=0&size=5",
-							"protocol": "http",
+							"raw": "{{user_url_r}}/:userId/:sort?from=0&size=5",
 							"host": [
-								"localhost"
+								"{{user_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"users",
 								":userId",
 								":sort"
 							],
@@ -828,6 +1657,20 @@
 			"item": [
 				{
 					"name": "Получение всех запросов в статусе ОТПРАВЛЕНО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -851,15 +1694,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/operator/:sort?from=0&size=5",
-							"protocol": "http",
+							"raw": "{{operator_url_r}}/:sort?from=0&size=10",
 							"host": [
-								"localhost"
+								"{{operator_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"operator",
 								":sort"
 							],
 							"query": [
@@ -869,7 +1708,7 @@
 								},
 								{
 									"key": "size",
-									"value": "5"
+									"value": "10"
 								}
 							],
 							"variable": [
@@ -884,6 +1723,20 @@
 				},
 				{
 					"name": "Получение всех запросов по имени User 1 Operator 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -907,15 +1760,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/operator/users/:sort?namePart=tAtiAnA&from=0&size=5",
-							"protocol": "http",
+							"raw": "{{operator_url_r}}/users/:sort?namePart=tAtiAnA&from=0&size=5",
 							"host": [
-								"localhost"
+								"{{operator_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"operator",
 								"users",
 								":sort"
 							],
@@ -945,6 +1794,20 @@
 				},
 				{
 					"name": "Получение всех запросов по части имени User 3 Operator 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -968,15 +1831,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/operator/users/:sort?namePart=vel&from=0&size=5",
-							"protocol": "http",
+							"raw": "{{operator_url_r}}/users/:sort?namePart=vel&from=0&size=5",
 							"host": [
-								"localhost"
+								"{{operator_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"operator",
 								"users",
 								":sort"
 							],
@@ -1006,6 +1865,20 @@
 				},
 				{
 					"name": "Принятие заявки 1 Operator 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1026,15 +1899,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/operator/:operatorId/accept/:requestId",
-							"protocol": "http",
+							"raw": "{{operator_url_r}}/:operatorId/accept/:requestId",
 							"host": [
-								"localhost"
+								"{{operator_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"operator",
 								":operatorId",
 								"accept",
 								":requestId"
@@ -1054,7 +1923,21 @@
 					"response": []
 				},
 				{
-					"name": "Отклонение заявки 1 Operator 5",
+					"name": "Принятие заявки 8 Operator 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1075,15 +1958,129 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/operator/:operatorId/reject/:requestId",
-							"protocol": "http",
+							"raw": "{{operator_url_r}}/:operatorId/accept/:requestId",
 							"host": [
-								"localhost"
+								"{{operator_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"operator",
+								":operatorId",
+								"accept",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "operatorId",
+									"value": "5"
+								},
+								{
+									"key": "requestId",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Принятие заявки 9 Operator 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{operator_url_r}}/:operatorId/accept/:requestId",
+							"host": [
+								"{{operator_url_r}}"
+							],
+							"path": [
+								":operatorId",
+								"accept",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "operatorId",
+									"value": "5"
+								},
+								{
+									"key": "requestId",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Отклонение заявки 1 Operator 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{operator_url_r}}/:operatorId/reject/:requestId",
+							"host": [
+								"{{operator_url_r}}"
+							],
+							"path": [
 								":operatorId",
 								"reject",
 								":requestId"
@@ -1101,6 +2098,326 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Отклонение заявки 7 Operator 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{operator_url_r}}/:operatorId/reject/:requestId",
+							"host": [
+								"{{operator_url_r}}"
+							],
+							"path": [
+								":operatorId",
+								"reject",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "operatorId",
+									"value": "5"
+								},
+								{
+									"key": "requestId",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Отклонение заявки 6 Operator 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{operator_url_r}}/:operatorId/reject/:requestId",
+							"host": [
+								"{{operator_url_r}}"
+							],
+							"path": [
+								":operatorId",
+								"reject",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "operatorId",
+									"value": "5"
+								},
+								{
+									"key": "requestId",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение всех запросов в статусе ОТПРАВЛЕНО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{operator_url_r}}/:sort?from=0&size=5",
+							"host": [
+								"{{operator_url_r}}"
+							],
+							"path": [
+								":sort"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							],
+							"variable": [
+								{
+									"key": "sort",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение всех запросов в статусе ПРИНЯТО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{operator_url_r}}/accept/users/:sort?from=0&size=10",
+							"host": [
+								"{{operator_url_r}}"
+							],
+							"path": [
+								"accept",
+								"users",
+								":sort"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "sort",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение всех запросов в статусе ОТКЛОНЕНО",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{operator_url_r}}/reject/users/:sort?from=0&size=10",
+							"host": [
+								"{{operator_url_r}}"
+							],
+							"path": [
+								"reject",
+								"users",
+								":sort"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "10"
+								}
+							],
+							"variable": [
+								{
+									"key": "sort",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -1109,6 +2426,20 @@
 			"item": [
 				{
 					"name": "Получение всех пользователей Admin 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1132,15 +2463,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/admin/:adminId/users?from=0&size=5",
-							"protocol": "http",
+							"raw": "{{admin_url_r}}/:adminId/users?from=0&size=5",
 							"host": [
-								"localhost"
+								"{{admin_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"admin",
 								":adminId",
 								"users"
 							],
@@ -1166,6 +2493,20 @@
 				},
 				{
 					"name": "Поиск пользователя по имени User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1189,15 +2530,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/admin/user?namePart=Tatiana&from=0&size=5",
-							"protocol": "http",
+							"raw": "{{admin_url_r}}/user?namePart=Tatiana&from=0&size=5",
 							"host": [
-								"localhost"
+								"{{admin_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"admin",
 								"user"
 							],
 							"query": [
@@ -1220,6 +2557,20 @@
 				},
 				{
 					"name": "Поиск пользователя по имени User 6",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -1243,15 +2594,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/admin/user/?namePart=iana&from=0&size=5",
-							"protocol": "http",
+							"raw": "{{admin_url_r}}/user/?namePart=iana&from=0&size=5",
 							"host": [
-								"localhost"
+								"{{admin_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"admin",
 								"user",
 								""
 							],
@@ -1275,6 +2622,20 @@
 				},
 				{
 					"name": "Назначение прав OPERATOR User 1 Admin 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1295,15 +2656,11 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/admin/:adminId/user/:userId",
-							"protocol": "http",
+							"raw": "{{admin_url_r}}/:adminId/user/:userId",
 							"host": [
-								"localhost"
+								"{{admin_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"admin",
 								":adminId",
 								"user",
 								":userId"
@@ -1315,7 +2672,7 @@
 								},
 								{
 									"key": "userId",
-									"value": "1"
+									"value": "3"
 								}
 							]
 						}
@@ -1323,7 +2680,85 @@
 					"response": []
 				},
 				{
-					"name": "Удаление User 3 Admin 4",
+					"name": "Поиск пользователя по имени User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "4444",
+								"username": "4444@mail.ru"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin_url_r}}/user?namePart=Tatiana&from=0&size=5",
+							"host": [
+								"{{admin_url_r}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "namePart",
+									"value": "Tatiana"
+								},
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Удаление User 6 Admin 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1344,17 +2779,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/request/admin/:adminId/users/:userId",
-							"protocol": "http",
+							"raw": "{{admin_url_r}}/:adminId/user/:userId",
 							"host": [
-								"localhost"
+								"{{admin_url_r}}"
 							],
-							"port": "8080",
 							"path": [
-								"request",
-								"admin",
 								":adminId",
-								"users",
+								"user",
 								":userId"
 							],
 							"variable": [
@@ -1364,7 +2795,7 @@
 								},
 								{
 									"key": "userId",
-									"value": "3"
+									"value": "6"
 								}
 							]
 						}
@@ -1378,6 +2809,20 @@
 			"item": [
 				{
 					"name": "Создание пользователя без имени",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1397,12 +2842,26 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/registration/users"
+						"url": "{{user_url_create}}"
 					},
 					"response": []
 				},
 				{
 					"name": "Создание пользователя без пароля",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1422,12 +2881,26 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/registration/users"
+						"url": "{{user_url_create}}"
 					},
 					"response": []
 				},
 				{
 					"name": "Создание пользователя без емаила",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1447,12 +2920,26 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/registration/users"
+						"url": "{{user_url_create}}"
 					},
 					"response": []
 				},
 				{
 					"name": "Создание пользователя с повторным емаилом",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(409);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "basic",
@@ -1472,7 +2959,722 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/registration/users"
+						"url": "{{user_url_create}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Редактирование отправленной на рассмотрение заявки",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "1111@mail.ru",
+								"password": "1111"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Запрос от пользователя 1 и он решил обновить текст!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/update/:userId/request/:requestId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								"update",
+								":userId",
+								"request",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "requestId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Принятие заявки 3 User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{operator_url_r}}/:operatorId/accept/:requestId",
+							"host": [
+								"{{operator_url_r}}"
+							],
+							"path": [
+								":operatorId",
+								"accept",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "operatorId",
+									"value": "1"
+								},
+								{
+									"key": "requestId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Отклонение заявки 3 User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{operator_url_r}}/:operatorId/reject/:requestId",
+							"host": [
+								"{{operator_url_r}}"
+							],
+							"path": [
+								":operatorId",
+								"reject",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "operatorId",
+									"value": "1"
+								},
+								{
+									"key": "requestId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Получение всех пользователей User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "4444",
+								"username": "4444@mail.ru"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin_url_r}}/:adminId/users?from=0&size=5",
+							"host": [
+								"{{admin_url_r}}"
+							],
+							"path": [
+								":adminId",
+								"users"
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							],
+							"variable": [
+								{
+									"key": "adminId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Назначение прав OPERATOR User 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "4444",
+								"username": "4444@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin_url_r}}/:adminId/user/:userId",
+							"host": [
+								"{{admin_url_r}}"
+							],
+							"path": [
+								":adminId",
+								"user",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "adminId",
+									"value": "1"
+								},
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание запроса 5 от Operator 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1111",
+								"username": "1111@mail.ru"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Запрос от пользователя 2 и он очень важен!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/:userId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Обновление запроса 5 от Operator 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "1111@mail.ru",
+								"password": "1111"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Запрос от пользователя 2 и он решил обновить текст!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/update/:userId/request/:requestId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								"update",
+								":userId",
+								"request",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "2"
+								},
+								{
+									"key": "requestId",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Назначение прав OPERATOR Operator 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "4444",
+								"username": "4444@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{admin_url_r}}/:adminId/user/:userId",
+							"host": [
+								"{{admin_url_r}}"
+							],
+							"path": [
+								":adminId",
+								"user",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "adminId",
+									"value": "5"
+								},
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Создание запроса 6 от Admin 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "1111",
+								"username": "1111@mail.ru"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"Запрос от пользователя 4 и он очень важен!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/:userId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Обновление запроса 6 от Admin 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"username": "1111@mail.ru",
+								"password": "1111"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\": \"Запрос от пользователя 2 и он решил обновить текст!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{user_url_r}}/update/:userId/request/:requestId",
+							"host": [
+								"{{user_url_r}}"
+							],
+							"path": [
+								"update",
+								":userId",
+								"request",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "4"
+								},
+								{
+									"key": "requestId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Принятие заявки 3 Admin 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									"pm.test(\"Status test\", function () {\r",
+									"pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{operator_url_r}}/:operatorId/accept/:requestId",
+							"host": [
+								"{{operator_url_r}}"
+							],
+							"path": [
+								":operatorId",
+								"accept",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "operatorId",
+									"value": "4"
+								},
+								{
+									"key": "requestId",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Отклонение заявки 3 Admin 4",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": {
+								"password": "5555",
+								"username": "5555@mail.ru"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{operator_url_r}}/:operatorId/reject/:requestId",
+							"host": [
+								"{{operator_url_r}}"
+							],
+							"path": [
+								":operatorId",
+								"reject",
+								":requestId"
+							],
+							"variable": [
+								{
+									"key": "operatorId",
+									"value": "4"
+								},
+								{
+									"key": "requestId",
+									"value": "3"
+								}
+							]
+						}
 					},
 					"response": []
 				}
