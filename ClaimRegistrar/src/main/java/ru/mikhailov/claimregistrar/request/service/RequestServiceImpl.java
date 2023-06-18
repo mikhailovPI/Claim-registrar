@@ -24,6 +24,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ru.mikhailov.claimregistrar.request.mapper.RequestMapper.toRequestAllDto;
+import static ru.mikhailov.claimregistrar.request.mapper.RequestMapper.toRequestDto;
+
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -37,11 +40,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<RequestDto> getRequestsByUser(Long userId, Integer sort, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
-        User user = validationUser(userId);
-        if (!user.getId().equals(userId)) {
-            throw new NotFoundException(
-                    String.format("Пользователь %s не может смотреть чужие запросы!", user.getName()));
-        }
+        validationUser(userId);
         if (sort.equals(0)) {
             //сортировка по возрастанию даты
             return requestRepository.findRequestsByUserId(userId, pageRequest)
@@ -81,8 +80,7 @@ public class RequestServiceImpl implements RequestService {
         Request request = RequestMapper.toRequest(requestDto);
         request.setPublishedOn(LocalDateTime.now());
         request.setUser(user);
-        Request requestSave = requestRepository.save(request);
-        return RequestMapper.toRequestAllDto(requestSave);
+        return toRequestAllDto(requestRepository.save(request));
     }
 
     @Override
@@ -110,8 +108,7 @@ public class RequestServiceImpl implements RequestService {
                 });
         if (request.getStatus().equals(RequestStatus.DRAFT)) {
             request.setStatus(RequestStatus.SHIPPED);
-            Request requestUpdate = requestRepository.save(request);
-            return RequestMapper.toRequestDto(requestUpdate);
+            return toRequestDto(requestRepository.save(request));
         } else {
             throw new NotFoundException(
                     String.format("Заявка имеет статус %s, а должна иметь статус '%s'!",
@@ -148,8 +145,7 @@ public class RequestServiceImpl implements RequestService {
                             RequestStatus.REJECTED));
         }
         request.setText(requestUprateDto.getText());
-        Request requestSave = requestRepository.save(request);
-        return RequestMapper.toRequestDto(requestSave);
+        return toRequestDto(requestRepository.save(request));
     }
 
     //Методы для оператора
@@ -271,8 +267,7 @@ public class RequestServiceImpl implements RequestService {
                 });
         if (request.getStatus().equals(RequestStatus.SHIPPED)) {
             request.setStatus(RequestStatus.ACCEPTED);
-            Request requestUpdate = requestRepository.save(request);
-            return RequestMapper.toRequestAllDto(requestUpdate);
+            return toRequestAllDto(requestRepository.save(request));
         } else {
             throw new NotFoundException(
                     String.format("Заявка не имеет статус %s!", RequestStatus.SHIPPED));
@@ -301,8 +296,7 @@ public class RequestServiceImpl implements RequestService {
         if (request.getStatus().equals(RequestStatus.SHIPPED) ||
                 request.getStatus().equals(RequestStatus.ACCEPTED)) {
             request.setStatus(RequestStatus.REJECTED);
-            Request requestUpdate = requestRepository.save(request);
-            return RequestMapper.toRequestAllDto(requestUpdate);
+            return toRequestAllDto(requestRepository.save(request));
         } else {
             throw new NotFoundException(
                     String.format("Заявка не имеет статус %s или %s!",
@@ -311,6 +305,61 @@ public class RequestServiceImpl implements RequestService {
         }
     }
 
+    //Методы исполнителя
+    @Override
+    public List<RequestAllDto> getDoneRequest(Integer sort, int from, int size) {
+        PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
+        if (sort.equals(0)) {
+            //сортировка по убыванию даты
+            return requestRepository.findAll(pageRequest)
+                    .stream()
+                    .filter(request -> request.getStatus().equals(RequestStatus.DONE))
+                    .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
+                    .map(RequestMapper::toRequestAllDto)
+                    .collect(Collectors.toList());
+        } else if (sort.equals(1)) {
+            //сортировка по возрастанию даты
+            return requestRepository.findAll(pageRequest)
+                    .stream()
+                    .filter(request -> request.getStatus().equals(RequestStatus.DONE))
+                    .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
+                    .map(RequestMapper::toRequestAllDto)
+                    .collect(Collectors.toList());
+        } else {
+            throw new NotFoundException("Сортировка возможна только по возрастанию или убыванию!");
+        }
+    }
+
+    @Override
+    @Transactional
+    public RequestAllDto doneRequest(Long executorId, Long requestId) {
+        Request request = validationRequest(requestId);
+        User executor = validationUser(executorId);
+        executor.getUserRole()
+                .stream()
+                .filter(role -> !role.getName().equals(String.valueOf(UserRole.EXECUTOR)))
+                .forEach(role -> {
+                    throw new NotFoundException(
+                            String.format("Пользователь %s (роль - %s)не может отклонять заявку, " +
+                                            "т.к. не является %s!",
+                                    executor.getName(),
+                                    executor.getUserRole()
+                                            .stream()
+                                            .map(Role::getName)
+                                            .collect(Collectors.toSet()),
+                                    UserRole.EXECUTOR));
+                });
+        if (request.getStatus().equals(RequestStatus.ACCEPTED)) {
+            request.setStatus(RequestStatus.DONE);
+            return toRequestAllDto(requestRepository.save(request));
+        } else {
+            throw new NotFoundException(
+                    String.format("Заявка не имеет статус %s!",
+                            RequestStatus.ACCEPTED));
+        }
+    }
+
+    //Методы валидации переданного id
     private User validationUser(Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(

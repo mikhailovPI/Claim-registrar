@@ -4,5 +4,6 @@ public enum RequestStatus {
     DRAFT, //черновик
     SHIPPED, //отправленно
     ACCEPTED, //принято
-    REJECTED //отклонено
+    REJECTED, //отклонено
+    DONE //выполнено
 }

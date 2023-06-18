@@ -33,5 +33,8 @@ public interface RequestService {
 
     RequestAllDto rejectRequest(Long operatorId, Long requestId);
 
+    //Методы исполнителя
+    List<RequestAllDto> getDoneRequest(Integer sort, int from, int size);
 
+    RequestAllDto doneRequest(Long userId, Long requestId);
 }
