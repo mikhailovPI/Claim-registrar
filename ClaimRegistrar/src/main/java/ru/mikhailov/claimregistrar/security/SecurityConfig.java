@@ -11,8 +11,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import ru.mikhailov.claimregistrar.user.model.UserRole;
 
 import static ru.mikhailov.claimregistrar.request.controller.RequestAdminController.URL_ADMIN;
+import static ru.mikhailov.claimregistrar.request.controller.RequestExecutorController.URL_EXECUTOR;
 import static ru.mikhailov.claimregistrar.request.controller.RequestOperatorController.URL_OPERATOR;
 import static ru.mikhailov.claimregistrar.request.controller.RequestUserController.URL_USER;
 
@@ -31,11 +33,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable()
                 .authorizeRequests()
                     .antMatchers(URL_ADMIN + "/**")
-                        .hasAuthority("ADMIN")
+                        .hasAuthority(String.valueOf(UserRole.ADMIN))
                     .antMatchers(URL_OPERATOR + "/**")
-                        .hasAnyAuthority("OPERATOR", "ADMIN")
+                        .hasAnyAuthority(String.valueOf(UserRole.OPERATOR)
+                                , String.valueOf(UserRole.ADMIN))
                     .antMatchers(URL_USER + "/**")
-                        .hasAuthority("USER")
+                        .hasAuthority(String.valueOf(UserRole.USER))
+                    .antMatchers(URL_EXECUTOR + "/**")
+                        .hasAuthority(String.valueOf(UserRole.EXECUTOR))
                     .antMatchers("/registration/user").permitAll()
                 .and()
                     .formLogin()
