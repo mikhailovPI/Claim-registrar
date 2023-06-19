@@ -1,5 +1,6 @@
 package ru.mikhailov.claimregistrar.user.service;
 
+import ru.mikhailov.claimregistrar.user.dto.UserAdminDto;
 import ru.mikhailov.claimregistrar.user.dto.UserDto;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public interface UserService {
 
     void deleteUserById(Long adminId, Long userId);
 
-    List<UserDto> getAllUsers(Long adminId, int from, int size);
+    List<UserAdminDto> getAllUsers(Long adminId, int from, int size);
 
-    UserDto getUserByName(String namePart);
+    UserAdminDto getUserByName(String namePart);
 
-    UserDto assignRightsOperator(Long adminId, Long userId);
+    UserAdminDto assignRightsOperator(Long adminId, Long userId);
 }

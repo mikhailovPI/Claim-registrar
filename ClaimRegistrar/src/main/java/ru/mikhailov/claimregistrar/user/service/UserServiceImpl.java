@@ -9,6 +9,7 @@ import ru.mikhailov.claimregistrar.config.PageRequestOverride;
 import ru.mikhailov.claimregistrar.exception.ConflictingRequestException;
 import ru.mikhailov.claimregistrar.exception.NotFoundException;
 import ru.mikhailov.claimregistrar.request.repository.RequestRepository;
+import ru.mikhailov.claimregistrar.user.dto.UserAdminDto;
 import ru.mikhailov.claimregistrar.user.dto.UserDto;
 import ru.mikhailov.claimregistrar.user.mapper.UserMapper;
 import ru.mikhailov.claimregistrar.user.model.Role;
@@ -24,8 +25,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static ru.mikhailov.claimregistrar.config.Validation.validationBodyUser;
-import static ru.mikhailov.claimregistrar.user.mapper.UserMapper.toUser;
-import static ru.mikhailov.claimregistrar.user.mapper.UserMapper.toUserDto;
+import static ru.mikhailov.claimregistrar.user.mapper.UserMapper.*;
 
 @Service
 @Slf4j
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
 
     //Методы для админа
     @Override
-    public List<UserDto> getAllUsers(Long adminId, int from, int size) {
+    public List<UserAdminDto> getAllUsers(Long adminId, int from, int size) {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
         User admin = validationUser(adminId);
         admin.getUserRole()
@@ -94,18 +94,18 @@ public class UserServiceImpl implements UserService {
                 });
         return userRepository.findAll(pageRequest)
                 .stream()
-                .map(UserMapper::toUserDto)
+                .map(UserMapper::toUserAdminDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public UserDto getUserByName(String namePart) {
-        return toUserDto(userRepository.findFirstUserByNamePart(namePart));
+    public UserAdminDto getUserByName(String namePart) {
+        return toUserAdminDto(userRepository.findFirstUserByNamePart(namePart));
     }
 
     @Override
     @Transactional
-    public UserDto assignRightsOperator(Long adminId, Long userId) {
+    public UserAdminDto assignRightsOperator(Long adminId, Long userId) {
         User admin = validationUser(adminId);
         User user = validationUser(userId);
         admin.getUserRole()
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
                             UserRole.USER));
         }
         userRepository.save(user);
-        return toUserDto(user);
+        return toUserAdminDto(user);
     }
 
     @Override

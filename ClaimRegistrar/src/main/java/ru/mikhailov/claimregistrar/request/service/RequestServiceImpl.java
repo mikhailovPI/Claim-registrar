@@ -154,17 +154,15 @@ public class RequestServiceImpl implements RequestService {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
         if (sort.equals(0)) {
             //сортировка по убыванию даты
-            return requestRepository.findAll(pageRequest)
+            return requestRepository.findRequestStatusShipped(pageRequest)
                     .stream()
-                    .filter(request -> request.getStatus().equals(RequestStatus.SHIPPED))
                     .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
                     .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
         } else if (sort.equals(1)) {
             //сортировка по возрастанию даты
-            return requestRepository.findAll(pageRequest)
+            return requestRepository.findRequestStatusShipped(pageRequest)
                     .stream()
-                    .filter(request -> request.getStatus().equals(RequestStatus.SHIPPED))
                     .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
                     .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
@@ -180,7 +178,6 @@ public class RequestServiceImpl implements RequestService {
             //сортировка по убыванию даты
             return requestRepository.findOrdersByUserNamePart(namePart, pageRequest)
                     .stream()
-                    .filter(request -> request.getStatus().equals(RequestStatus.SHIPPED))
                     .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
                     .map(RequestMapper::toRequestDto)
                     .collect(Collectors.toList());
@@ -188,7 +185,6 @@ public class RequestServiceImpl implements RequestService {
             //сортировка по возрастанию даты
             return requestRepository.findOrdersByUserNamePart(namePart, pageRequest)
                     .stream()
-                    .filter(request -> request.getStatus().equals(RequestStatus.SHIPPED))
                     .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
                     .map(RequestMapper::toRequestDto)
                     .collect(Collectors.toList());
@@ -203,17 +199,15 @@ public class RequestServiceImpl implements RequestService {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
         if (sort.equals(0)) {
             //сортировка по убыванию даты
-            return requestRepository.findAll(pageRequest)
+            return requestRepository.findRequestStatusAccepted(pageRequest)
                     .stream()
-                    .filter(request -> request.getStatus().equals(RequestStatus.ACCEPTED))
                     .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
                     .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
         } else if (sort.equals(1)) {
             //сортировка по возрастанию даты
-            return requestRepository.findAll(pageRequest)
+            return requestRepository.findRequestStatusAccepted(pageRequest)
                     .stream()
-                    .filter(request -> request.getStatus().equals(RequestStatus.ACCEPTED))
                     .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
                     .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
@@ -227,17 +221,15 @@ public class RequestServiceImpl implements RequestService {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
         if (sort.equals(0)) {
             //сортировка по убыванию даты
-            return requestRepository.findAll(pageRequest)
+            return requestRepository.findRequestStatusRejected(pageRequest)
                     .stream()
-                    .filter(request -> request.getStatus().equals(RequestStatus.REJECTED))
                     .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
                     .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
         } else if (sort.equals(1)) {
             //сортировка по возрастанию даты
-            return requestRepository.findAll(pageRequest)
+            return requestRepository.findRequestStatusRejected(pageRequest)
                     .stream()
-                    .filter(request -> request.getStatus().equals(RequestStatus.REJECTED))
                     .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
                     .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
@@ -311,17 +303,15 @@ public class RequestServiceImpl implements RequestService {
         PageRequestOverride pageRequest = PageRequestOverride.of(from, size);
         if (sort.equals(0)) {
             //сортировка по убыванию даты
-            return requestRepository.findAll(pageRequest)
+            return requestRepository.findRequestStatusDone(pageRequest)
                     .stream()
-                    .filter(request -> request.getStatus().equals(RequestStatus.DONE))
                     .sorted(Comparator.comparingInt(o -> o.getPublishedOn().getNano()))
                     .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());
         } else if (sort.equals(1)) {
             //сортировка по возрастанию даты
-            return requestRepository.findAll(pageRequest)
+            return requestRepository.findRequestStatusDone(pageRequest)
                     .stream()
-                    .filter(request -> request.getStatus().equals(RequestStatus.DONE))
                     .sorted((o1, o2) -> o2.getPublishedOn().getNano() - o1.getPublishedOn().getNano())
                     .map(RequestMapper::toRequestAllDto)
                     .collect(Collectors.toList());

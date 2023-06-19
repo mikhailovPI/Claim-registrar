@@ -3,6 +3,7 @@ package ru.mikhailov.claimregistrar.request.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ru.mikhailov.claimregistrar.user.dto.UserAdminDto;
 import ru.mikhailov.claimregistrar.user.dto.UserDto;
 import ru.mikhailov.claimregistrar.user.service.UserService;
 
@@ -20,7 +21,7 @@ public class RequestAdminController {
 
     //Посмотреть список всех пользователей
     @GetMapping(path = "/{adminId}/users")
-    public List<UserDto> getAllUsers(
+    public List<UserAdminDto> getAllUsers(
             @PathVariable Long adminId,
             @RequestParam(name = "from", defaultValue = "0") int from,
             @RequestParam(name = "size", defaultValue = "5") int size) {
@@ -30,7 +31,7 @@ public class RequestAdminController {
 
     //Поиск пользователя по имени
     @GetMapping(path = "/user")
-    public UserDto getUserByName(
+    public UserAdminDto getUserByName(
             @RequestParam(name = "namePart", required = false) String namePart) {
         log.info("URL: /request/admin/user. GetMapping/Поиск пользователя по имени/getUserByName");
         return userService.getUserByName(namePart);
@@ -38,7 +39,7 @@ public class RequestAdminController {
 
     //Назначение прав оператора
     @PatchMapping(path = "/{adminId}/user/{userId}")
-    public UserDto assignRightsOperator(
+    public UserAdminDto assignRightsOperator(
             @PathVariable Long adminId,
             @PathVariable Long userId) {
         log.info("URL: /request/admin/{adminId}/user/{userId}. PatchMapping/Поиск пользователя " +
