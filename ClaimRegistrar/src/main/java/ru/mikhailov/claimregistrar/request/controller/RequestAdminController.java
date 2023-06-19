@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.mikhailov.claimregistrar.user.dto.UserAdminDto;
-import ru.mikhailov.claimregistrar.user.dto.UserDto;
 import ru.mikhailov.claimregistrar.user.service.UserService;
 
 import java.util.List;
