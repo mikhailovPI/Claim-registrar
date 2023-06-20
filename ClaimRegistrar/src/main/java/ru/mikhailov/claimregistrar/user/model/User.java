@@ -23,11 +23,11 @@ public class User {
     public static final String SCHEMA_TABLE = "public";
     public static final String USERS_ID = "user_id";
     public static final String USERS_NAME = "user_name";
-    private static final String USERS_PASSWORD = "user_password";
+    public static final String USERS_PASSWORD = "user_password";
     public static final String USERS_EMAIL = "email";
     public static final String USERS_ADMIN = "user_admin";
     public static final String USERS_OPERATOR = "user_operator";
-    private static final String ROLE_ID = "role_id";
+    public static final String ROLE_ID = "role_id";
 
 
     @Id

@@ -24,9 +24,9 @@ public class Request {
     public static final String SCHEMA_TABLE = "public";
     public static final String REQUEST_ID = "request_id";
     public static final String REQUEST_TEXT = "text_request";
-    private static final String REQUEST_CREATE_ON = "created_on";
-    private static final String REQUEST_USER_ID = "user_id";
-    private static final String REQUEST_STATUS = "status";
+    public static final String REQUEST_CREATE_ON = "created_on";
+    public static final String REQUEST_USER_ID = "user_id";
+    public static final String REQUEST_STATUS = "status";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,4 +48,6 @@ public class Request {
     @Enumerated(EnumType.STRING)
     @Column(name = REQUEST_STATUS)
     RequestStatus status;
+
+
 }
